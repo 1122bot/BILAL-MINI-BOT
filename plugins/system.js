@@ -42,7 +42,7 @@ module.exports = {
                 image: { url: 'https://files.catbox.moe/bkufwo.jpg' }, // Confirm accessibility
                 caption,
                 contextInfo: {
-                    mentionedJid: ['554488138425@s.whatsapp.net'],
+                    mentionedJid: ['923078071982@s.whatsapp.net'],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
