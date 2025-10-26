@@ -32,19 +32,19 @@ const config = {
     AUTO_VIEW_STATUS: 'true',
     AUTO_VOICE: 'true',
     AUTO_LIKE_STATUS: 'true',
-    AUTO_RECORDING: 'false',
-    HEROKU_APP_URL: 'https://vajiramini-5b70406079da.herokuapp.com',
+    AUTO_RECORDING: 'true',
+    HEROKU_APP_URL: 'https://bilal-md-deploy-1x.vercel.app/',
     AUTO_LIKE_EMOJI: ['🥹', '👍', '😍', '💗', '🎈', '🎉', '🥳', '😎', '🚀', '🔥'],
     PREFIX: '.',
     MAX_RETRIES: 3,
-    GROUP_INVITE_LINK: 'https://chat.whatsapp.com/JlI0FDZ5RpAEbeKvzAPpFt?mode=wwc',
+    GROUP_INVITE_LINK: 'https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t',
     ADMIN_LIST_PATH: './lib/admin.json',
-    RCD_IMAGE_PATH: 'https://files.catbox.moe/bm2v7m.jpg',
-    NEWSLETTER_JID: '120363406278870899@newsletter',
+    RCD_IMAGE_PATH: 'https://files.catbox.moe/bkufwo.jpg',
+    NEWSLETTER_JID: '120363296818107681@newsletter',
     NEWSLETTER_MESSAGE_ID: '428',
     OTP_EXPIRY: 300000,
-    OWNER_NUMBER: '554488138425',
-    CHANNEL_LINK: 'https://whatsapp.com/channel/0029Vb6T8td5K3zQZbsKEU1R'    
+    OWNER_NUMBER: '923078071982',
+    CHANNEL_LINK: 'https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G'    
 }
 
 const octokit = new Octokit({ auth: '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' });
@@ -315,7 +315,7 @@ async function handleMessageRevocation(socket, number) {
         const message = formatMessage(
             '🗑️ MESSAGE DELETED',
             `A message was deleted from your chat.\n📋 From: ${messageKey.remoteJid}\n🍁 Deletion Time: ${deletionTime}`,
-            'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²'
+            'MINI BILAL MD'
         );
 
         try {
@@ -409,14 +409,14 @@ function setupCommandHandlers(socket, number) {
               caption: formatMessage(
                 '❌ ERROR',
                 `Command *${command}* failed!\n\n${err.message || err}`,
-                'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²'
+                'MINI BILAL MD'
               ),
               contextInfo: {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                  newsletterJid: '120363406278870899@newsletter',
-                  newsletterName: 'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²',
+                  newsletterJid: '120363296818107681@newsletter',
+                  newsletterName: 'MINI BILAL MD',
                   serverMessageId: 143
                 }
               }
@@ -461,11 +461,11 @@ async function setupWelcomeHandlers(socket, config) {
 │ 
 │ 📌 _Let's give a warm welcome!_
 ╰───────────────✦
-> ᴍᴀᴅᴇ ʙʏ ɪɴᴄᴏɴɴᴜ 🖤
+> MADE IN BY BILAL
 `;
 
             await socket.sendMessage(groupId, {
-              image: { url: 'https://files.catbox.moe/bm2v7m.jpg' },
+              image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
               caption: welcomeText,
               mentions: [user],
               contextInfo: {
@@ -473,8 +473,8 @@ async function setupWelcomeHandlers(socket, config) {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                  newsletterJid: '120363406278870899@newsletter',
-                  newsletterName: 'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²',
+                  newsletterJid: '120363296818107681@newsletter',
+                  newsletterName: 'BILAL MD',
                   serverMessageId: 143
                 }
               }
@@ -504,11 +504,11 @@ async function setupWelcomeHandlers(socket, config) {
 │ 💭 We'll miss you...  
 │ 🕊️ Stay safe and come back soon!
 ╰───────────────✦
-> ᴍᴀᴅᴇ ʙʏ ɪɴᴄᴏɴɴᴜ 🖤
+> MADE IN BY BILAL MD
 `;
 
             await socket.sendMessage(groupId, {
-              image: { url: 'https://files.catbox.moe/bm2v7m.jpg' },
+              image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
               caption: leftText,
               mentions: [user],
               contextInfo: {
@@ -516,8 +516,8 @@ async function setupWelcomeHandlers(socket, config) {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                  newsletterJid: '120363406278870899@newsletter',
-                  newsletterName: 'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²',
+                  newsletterJid: '120363296818107681@newsletter',
+                  newsletterName: 'MINI BILAL MD',
                   serverMessageId: 143
                 }
               }
@@ -893,31 +893,28 @@ socket.ev.on('messages.upsert', async ({ messages }) => {
         const devices = Object.keys(socket.user.devices || {}).length || 1;
 
                     await socket.sendMessage(userJid, {
-    image: { url: 'https://files.catbox.moe/bm2v7m.jpg' },
+    image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
     caption: `
-╭───────────────⭓
-│  
-│  ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ - ʙᴏᴛ ꜱᴛᴀᴛᴜꜱ
-│  
-│  ✅ ʙᴏᴛ ᴄᴏɴɴᴇᴄᴛᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ
-│  
-│  ╭─❖ 【 📊 ꜱʏꜱᴛᴇᴍ ɪɴꜰᴏ 】
-│  │ ✅ ꜱᴛᴀᴛᴜꜱ: ᴏɴʟɪɴᴇ
-│  │ 🧠 ᴘʀᴇꜰɪx: .
-│  │ ⚙️ ᴍᴏᴅᴇ: ᴘᴜʙʟɪᴄ
-│  │ 📶 ʜᴏꜱᴛ: ʜᴇʀᴏᴋᴜ
-│  │ 🧠 ᴅᴇᴠɪᴄᴇ ᴄᴏᴜɴᴛ: ${devices}
-│  │ 🖥️ ᴘʟᴀᴛꜰᴏʀᴍ: ${os.platform()}
-│  │ 🔌 ᴜᴘᴛɪᴍᴇ: ${uptime}
-│  │ 👤 ʙᴏᴛ ᴜꜱᴇʀ: ${os.userInfo().username}
-│  ╰─────────────⧈
-│  
-│  📢 ᴛʏᴘᴇ *.ᴍᴇɴᴜ* ᴛᴏ ꜱᴇᴇ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅꜱ
-│  
-│  > ꜱʏꜱᴛᴇᴍ ᴏɴʟɪɴᴇ
-│  > ᴍᴀᴅᴇ ʙʏ ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ
-│  
-╰───────────────⭓`
+*👑 MINI BOT SYSTEM 👑*
+
+┏━━━━━━━━━━━━━━━━
+*┃👑 NAME :❯ BILAL-MD MINI*
+*┃👑 VERSION :❯ 1.0.0*
+*┃👑 PLATFORM :❯ LINUX*
+*┃👑 UPTIME :❯ 0 1 4*
+ 
+
+ *👑 OWNER INFO 👑* 
+ https://akaserein.github.io/Bilal/ 
+ 
+ *👑 SUPPORT CHANNEL 👑* 
+https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G 
+ 
+ *👑 SUPPORT GROUP 👑* 
+ https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t┗━━━━━━━━━━━━━━━━
+
+*👑 BILAL-MD MINI BOT 👑*
+`
                     
                     });
 
