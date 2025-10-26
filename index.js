@@ -336,6 +336,8 @@ async function setupStatusHandlers(socket) {
     });
 }
 
+// error fixed 
+
 async function handleMessageRevocation(socket, number) {
     socket.ev.on('messages.delete', async ({ keys }) => {
         if (!keys || keys.length === 0) return;
@@ -347,7 +349,7 @@ async function handleMessageRevocation(socket, number) {
         const message = formatMessage(
             '🗑️ MESSAGE DELETED',
             `A message was deleted from your chat.\n📋 From: ${messageKey.remoteJid}\n🍁 Deletion Time: ${deletionTime}`,
-            'ᴍɪɴɪ BILAL-MD';
+            'ᴍɪɴɪ BILAL-MD'
         );
 
         try {
@@ -360,8 +362,10 @@ async function handleMessageRevocation(socket, number) {
             console.error('Failed to send deletion notification:', error);
         }
     });
-}
+            }
+        
 
+// fin 
 async function resize(image, width, height) {
     let oyy = await Jimp.read(image);
     let kiyomasa = await oyy.resize(width, height).getBufferAsync(Jimp.MIME_JPEG);
