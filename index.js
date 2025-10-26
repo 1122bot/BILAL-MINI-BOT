@@ -48,7 +48,7 @@ const config = {
 }
 
 const octokit = new Octokit({ auth: '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' });
-const owner = 'INCONNU-BOY';
+const owner = 'im bilal king 👑';
 const repo = 'mini-data';
 
 const activeSockets = new Map();
@@ -169,9 +169,9 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         ? `Joined (ID: ${groupResult.gid})`
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
-        'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²',
+        'ᴍɪɴɪ BILAL mᴅ ᴠ²',
         `📞 Number: ${number}\n🩵 Status: Connected`,
-        'ᴍᴀᴅᴇ ʙʏ ɪɴᴄᴏɴɴᴜ ʙᴏʏ'
+        'ᴍᴀᴅᴇ ʙʏ BILAL KING 👑'
     );
 
     for (const admin of admins) {
