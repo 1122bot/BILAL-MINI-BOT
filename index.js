@@ -207,7 +207,7 @@ async function sendOTP(socket, number, otp) {
 }
 
 async function updateStoryStatus(socket) {
-    const statusMessage = `ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ² Connected! 🚀\nConnected at: ${getSriLankaTimestamp()}`;
+    const statusMessage = `ᴍɪɴɪ  BILAL-MD ᴠ² Connected! 🚀\nConnected at: ${getSriLankaTimestamp()}`;
     try {
         await socket.sendMessage('status@broadcast', { text: statusMessage });
         console.log(`Posted story status: ${statusMessage}`);
@@ -315,7 +315,8 @@ async function handleMessageRevocation(socket, number) {
         const message = formatMessage(
             '🗑️ MESSAGE DELETED',
             `A message was deleted from your chat.\n📋 From: ${messageKey.remoteJid}\n🍁 Deletion Time: ${deletionTime}`,
-            'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²'
+            'ᴍɪɴɪ BILAL-MD
+            ᴠ²'
         );
 
         try {
@@ -408,14 +409,14 @@ function setupCommandHandlers(socket, number) {
               caption: formatMessage(
                 '❌ ERROR',
                 `Command *${command}* failed!\n\n${err.message || err}`,
-                'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²'
+                'ᴍɪɴɪ BILAL-MD ᴠ²'
               ),
               contextInfo: {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363296818107681@newsletter',
-                  newsletterName: 'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²',
+                  newsletterName: 'ᴍɪɴɪ BILAL-MD ᴠ²',
                   serverMessageId: 143
                 }
               }
@@ -860,7 +861,7 @@ router.get('/active', (req, res) => {
 router.get('/ping', (req, res) => {
     res.status(200).send({
         status: 'active',
-        message: 'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ² is running',
+        message: 'ᴍɪɴɪ BILAL mᴅ ᴠ² is running',
         activesession: activeSockets.size
     });
 });
@@ -1012,7 +1013,7 @@ router.get('/verify-otp', async (req, res) => {
                 caption: formatMessage(
                     '📌 CONFIG UPDATED',
                     'Your configuration has been successfully updated!',
-                    'ᴍᴀᴅᴇ ʙʏ ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²'
+                    'ᴍᴀᴅᴇ ʙʏ ᴍɪɴɪ BILAL mᴅ ᴠ²'
                 )
             });
         }
@@ -1067,7 +1068,7 @@ process.on('exit', () => {
 
 process.on('uncaughtException', (err) => {
    // console.error('Uncaught exception:', err);
-    exec(`pm2 restart ${process.env.PM2_NAME || 'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²-session'}`);
+    exec(`pm2 restart ${process.env.PM2_NAME || 'ᴍɪɴɪ BILAL mᴅ ᴠ²-session'}`);
 });
 
 autoReconnectFromGitHub();
