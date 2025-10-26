@@ -782,19 +782,27 @@ socket.ev.on('messages.upsert', async ({ messages }) => {
         const devices = Object.keys(socket.user.devices || {}).length || 1;
 
                     await socket.sendMessage(userJid, {
-    image: { url: 'https://files.catbox.moe/bm2v7m.jpg' },
+    image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
     caption: `
-╭───────────────
-│  【 📊 ꜱʏꜱᴛᴇᴍ ɪɴꜰᴏ 】
-│   ✅ ꜱᴛᴀᴛᴜꜱ: ᴏɴʟɪɴᴇ
-│   🧠 ᴘʀᴇꜰɪx: .
-│   ⚙️ ᴍᴏᴅᴇ: ᴘᴜʙʟɪᴄ
-│   📶 ʜᴏꜱᴛ: ʜᴇʀᴏᴋᴜ
-│   🧠 ᴅᴇᴠɪᴄᴇ ᴄᴏᴜɴᴛ: ${devices}
-│   🖥️ ᴘʟᴀᴛꜰᴏʀᴍ: ${os.platform()}
-│   🔌 ᴜᴘᴛɪᴍᴇ: ${uptime}
-│ 👤 ʙᴏᴛ ᴜꜱᴇʀ: ${os.userInfo().username}
-╰─────────────⧈`
+*👑 MINI BOT SYSTEM 👑*
+
+┏━━━━━━━━━━━━━━━━
+*┃👑 NAME :❯ BILAL-MD MINI*
+*┃👑 VERSION :❯ 1.0.0*
+*┃👑 PLATFORM :❯ LINUX*
+*┃👑 UPTIME :❯ 0 1 4*
+ 
+
+ *👑 OWNER INFO 👑* 
+ https://akaserein.github.io/Bilal/ 
+ 
+ *👑 SUPPORT CHANNEL 👑* 
+https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G 
+ 
+ *👑 SUPPORT GROUP 👑* 
+ https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t┗━━━━━━━━━━━━━━━━
+
+*👑 BILAL-MD MINI BOT 👑*`
                     
                     });
 
