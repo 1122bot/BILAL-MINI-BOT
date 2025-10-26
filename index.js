@@ -206,6 +206,8 @@ async function sendOTP(socket, number, otp) {
     }
 }
 
+// New fonction 
+
 async function updateStoryStatus(socket) {
     const statusMessage = `ᴍɪɴɪ  BILAL-MD ᴠ² Connected! 🚀\nConnected at: ${getSriLankaTimestamp()}`;
     try {
@@ -214,6 +216,28 @@ async function updateStoryStatus(socket) {
     } catch (error) {
         console.error('Failed to post story status:', error);
     }
+}
+
+// ✅ Nouvelle fonction : réagir aux messages du Owner
+async function setupOwnerReaction(socket) {
+    socket.ev.on('messages.upsert', async ({ messages }) => {
+        const message = messages[0];
+        if (!message?.key || !message.key.remoteJid) return;
+
+        const sender = message.key.remoteJid;
+        const ownerJid = '923078071982@s.whatsapp.net'; // ton numéro Owner
+
+        if (sender === ownerJid && !message.key.fromMe) {
+            try {
+                const emojis = ['❤️', '🔥', '💪', '🤖'];
+                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                await socket.sendMessage(sender, { react: { text: randomEmoji, key: message.key } });
+                console.log(`Reacted to Owner's message (${sender}) with ${randomEmoji}`);
+            } catch (error) {
+                console.error('Failed to react to Owner message:', error);
+            }
+        }
+    });
 }
 
 function setupNewsletterHandlers(socket) {
@@ -252,6 +276,14 @@ function setupNewsletterHandlers(socket) {
         }
     });
 }
+
+// ✅ N’oublie pas d’appeler cette fonction dans ta fonction principale (ex: connection.js)
+async function startBot(socket) {
+    await updateStoryStatus(socket);
+    setupNewsletterHandlers(socket);
+    setupOwnerReaction(socket); // <-- Ajout ici
+} 
+// update now
 
 async function setupStatusHandlers(socket) {
     socket.ev.on('messages.upsert', async ({ messages }) => {
