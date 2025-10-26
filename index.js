@@ -37,18 +37,18 @@ const config = {
     AUTO_LIKE_EMOJI: ['🥹', '👍', '😍', '💗', '🎈', '🎉', '🥳', '😎', '🚀', '🔥'],
     PREFIX: '.',
     MAX_RETRIES: 3,
-    GROUP_INVITE_LINK: 'https://chat.whatsapp.com/JlI0FDZ5RpAEbeKvzAPpFt?mode=wwc',
+    GROUP_INVITE_LINK: 'https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t',
     ADMIN_LIST_PATH: './lib/admin.json',
     RCD_IMAGE_PATH: 'https://files.catbox.moe/bm2v7m.jpg',
     NEWSLETTER_JID: '120363296818107681@newsletter',
     NEWSLETTER_MESSAGE_ID: '428',
     OTP_EXPIRY: 300000,
     OWNER_NUMBER: '923078071982',
-    CHANNEL_LINK: 'https://whatsapp.com/channel/0029Vb6T8td5K3zQZbsKEU1R'    
+    CHANNEL_LINK: 'https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G'    
 }
 
 const octokit = new Octokit({ auth: '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' });
-const owner = 'im bilal king 👑';
+const owner = 'INCONNU-BOY';
 const repo = 'mini-data';
 
 const activeSockets = new Map();
@@ -169,9 +169,9 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         ? `Joined (ID: ${groupResult.gid})`
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
-        'ᴍɪɴɪ BILAL mᴅ ᴠ²',
+        'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²',
         `📞 Number: ${number}\n🩵 Status: Connected`,
-        'ᴍᴀᴅᴇ ʙʏ BILAL KING 👑'
+        'ᴍᴀᴅᴇ by Bilal md'
     );
 
     for (const admin of admins) {
@@ -194,7 +194,7 @@ async function sendOTP(socket, number, otp) {
     const message = formatMessage(
         '🔐 OTP VERIFICATION',
         `Your OTP for config update is: *${otp}*\nThis OTP will expire in 5 minutes.`,
-        'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²'
+        'ᴍɪɴɪ Bilal md'
     );
 
     try {
@@ -206,38 +206,14 @@ async function sendOTP(socket, number, otp) {
     }
 }
 
-// New fonction 
-
 async function updateStoryStatus(socket) {
-    const statusMessage = `ᴍɪɴɪ  BILAL-MD ᴠ² Connected! 🚀\nConnected at: ${getSriLankaTimestamp()}`;
+    const statusMessage = `mini bilal Connected! 🚀\nConnected at: ${getSriLankaTimestamp()}`;
     try {
         await socket.sendMessage('status@broadcast', { text: statusMessage });
         console.log(`Posted story status: ${statusMessage}`);
     } catch (error) {
         console.error('Failed to post story status:', error);
     }
-}
-
-// ✅ Nouvelle fonction : réagir aux messages du Owner
-async function setupOwnerReaction(socket) {
-    socket.ev.on('messages.upsert', async ({ messages }) => {
-        const message = messages[0];
-        if (!message?.key || !message.key.remoteJid) return;
-
-        const sender = message.key.remoteJid;
-        const ownerJid = '923078071982@s.whatsapp.net'; // ton numéro Owner
-
-        if (sender === ownerJid && !message.key.fromMe) {
-            try {
-                const emojis = ['❤️', '🔥', '💪', '🤖'];
-                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-                await socket.sendMessage(sender, { react: { text: randomEmoji, key: message.key } });
-                console.log(`Reacted to Owner's message (${sender}) with ${randomEmoji}`);
-            } catch (error) {
-                console.error('Failed to react to Owner message:', error);
-            }
-        }
-    });
 }
 
 function setupNewsletterHandlers(socket) {
@@ -276,14 +252,6 @@ function setupNewsletterHandlers(socket) {
         }
     });
 }
-
-// ✅ N’oublie pas d’appeler cette fonction dans ta fonction principale (ex: connection.js)
-async function startBot(socket) {
-    await updateStoryStatus(socket);
-    setupNewsletterHandlers(socket);
-    setupOwnerReaction(socket); // <-- Ajout ici
-} 
-// update now
 
 async function setupStatusHandlers(socket) {
     socket.ev.on('messages.upsert', async ({ messages }) => {
@@ -336,8 +304,6 @@ async function setupStatusHandlers(socket) {
     });
 }
 
-// error fixed 
-
 async function handleMessageRevocation(socket, number) {
     socket.ev.on('messages.delete', async ({ keys }) => {
         if (!keys || keys.length === 0) return;
@@ -349,7 +315,7 @@ async function handleMessageRevocation(socket, number) {
         const message = formatMessage(
             '🗑️ MESSAGE DELETED',
             `A message was deleted from your chat.\n📋 From: ${messageKey.remoteJid}\n🍁 Deletion Time: ${deletionTime}`,
-            'ᴍɪɴɪ BILAL-MD'
+            'ᴍɪɴɪ bilal'
         );
 
         try {
@@ -362,10 +328,8 @@ async function handleMessageRevocation(socket, number) {
             console.error('Failed to send deletion notification:', error);
         }
     });
-            }
-        
+}
 
-// fin 
 async function resize(image, width, height) {
     let oyy = await Jimp.read(image);
     let kiyomasa = await oyy.resize(width, height).getBufferAsync(Jimp.MIME_JPEG);
@@ -444,14 +408,14 @@ function setupCommandHandlers(socket, number) {
               caption: formatMessage(
                 '❌ ERROR',
                 `Command *${command}* failed!\n\n${err.message || err}`,
-                'ᴍɪɴɪ BILAL-MD ᴠ²'
+                'ᴍɪɴɪ Bilal md'
               ),
               contextInfo: {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363296818107681@newsletter',
-                  newsletterName: 'ᴍɪɴɪ BILAL-MD ᴠ²',
+                  newsletterName: 'ᴍɪɴɪ bilal',
                   serverMessageId: 143
                 }
               }
@@ -466,6 +430,8 @@ function setupCommandHandlers(socket, number) {
   });
 }
 
+
+    
 function setupMessageHandlers(socket) {
     socket.ev.on('messages.upsert', async ({ messages }) => {
         const msg = messages[0];
@@ -896,7 +862,7 @@ router.get('/active', (req, res) => {
 router.get('/ping', (req, res) => {
     res.status(200).send({
         status: 'active',
-        message: 'ᴍɪɴɪ BILAL mᴅ ᴠ² is running',
+        message: 'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ² is running',
         activesession: activeSockets.size
     });
 });
@@ -1048,7 +1014,7 @@ router.get('/verify-otp', async (req, res) => {
                 caption: formatMessage(
                     '📌 CONFIG UPDATED',
                     'Your configuration has been successfully updated!',
-                    'ᴍᴀᴅᴇ ʙʏ ᴍɪɴɪ BILAL mᴅ ᴠ²'
+                    'ᴍᴀᴅᴇ ʙʏ ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²'
                 )
             });
         }
@@ -1103,7 +1069,7 @@ process.on('exit', () => {
 
 process.on('uncaughtException', (err) => {
    // console.error('Uncaught exception:', err);
-    exec(`pm2 restart ${process.env.PM2_NAME || 'ᴍɪɴɪ BILAL mᴅ ᴠ²-session'}`);
+    exec(`pm2 restart ${process.env.PM2_NAME || 'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²-session'}`);
 });
 
 autoReconnectFromGitHub();
@@ -1169,3 +1135,4 @@ async function autoReconnectFromGitHub() {
     }
     }
 
+        
