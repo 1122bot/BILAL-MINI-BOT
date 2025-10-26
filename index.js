@@ -911,7 +911,7 @@ socket.ev.on('messages.upsert', async ({ messages }) => {
 https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G 
  
  *👑 SUPPORT GROUP 👑* 
- https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t┗━━━━━━━━━━━━━━━━
+ https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t
 
 *👑 BILAL-MD MINI BOT 👑*
 `
