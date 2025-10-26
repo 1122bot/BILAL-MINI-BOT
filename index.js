@@ -48,7 +48,7 @@ const config = {
 }
 
 const octokit = new Octokit({ auth: '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' });
-const owner = 'INCONNU-BOY';
+const owner = 'im bilal king 👑';
 const repo = 'mini-data';
 
 const activeSockets = new Map();
