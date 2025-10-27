@@ -12,7 +12,7 @@ module.exports = {
     const minutes = Math.floor((uptime % 3600) / 60);
     const seconds = Math.floor(uptime % 60);
 
-    const uptimeMessage = `⏱️ Bot Uptime:\n${hours}h ${minutes}m ${seconds}s`;
+    const uptimeMessage = `*👑 UPTIME :❯ ${hours}h ${minutes}m ${seconds}s 👑*`;
 
     await socket.sendMessage(sender, { text: uptimeMessage }, { quoted: msg });
   }
