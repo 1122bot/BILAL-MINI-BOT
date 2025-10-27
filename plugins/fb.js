@@ -43,7 +43,7 @@ module.exports = {
 
         try {
             if (!text) return await socket.sendMessage(sender, {
-                text: "*APKO FACEBOOK KI VIDEO DOWNLOAD KARNA HAI 🥺*\nTOH AP AISE LIKHO* \n\n *FB ❮FACEBOOK VIDEO LINK❯* \n\n *TO APKI FACEBOOK VIDEO DOWNLOAD KAR KE YAHA BHEJ DE JAYE GE ☺️❤️*"
+                text: "*APKO FACEBOOK KI VIDEO DOWNLOAD KARNA HAI 🥺*\n*TOH AP AISE LIKHO ☺️* \n\n *FB ❮FACEBOOK VIDEO LINK❯* \n\n *TO APKI FACEBOOK VIDEO DOWNLOAD KAR KE YAHA BHEJ DE JAYE GE 🥰❤️*"
             }, { quoted: msg });
 
             if (!text.includes("facebook.com")) return await socket.sendMessage(sender, {
