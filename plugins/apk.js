@@ -1,71 +1,59 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-const file_size_url = (...args) => import('file_size_url').then(({default: file_size_url}) => file_size_url(...args));
-const tools = require('../lib/config.js');
+const axios = require("axios");
 
 module.exports = {
-  command: "apk",
-  description: "📥 Get APK info and download the APK file",
+  command: 'apk',
+  alias: ["app","apps","application","ap"],
+  description: "Download APK from Aptoide",
+  category: "download",
+  react: "🥺",
+  usage: ".apk <app name>",
   execute: async (socket, msg, args) => {
     const sender = msg.key.remoteJid;
-    const reply = (text) => socket.sendMessage(sender, { text }, { quoted: msg });
-
-    if (!args.length) return reply("Please provide app package or name.\nExample: .apkdl com.whatsapp");
-
-    const id = args.join(" ");
-
-    // Your download function embedded inside plugin
-    async function download(id) {
-      let res = await fetch(tools.api(5, '/apps/search', {
-        query: id,
-        limit: 1
-      }));
-      res = await res.json();
-      if (!res.datalist?.list?.length) throw new Error('No app found');
-
-      const app = res.datalist.list[0];
-      const size = await file_size_url(app.file.path);
-
-      return {
-        name: app.name,
-        package: app.package,
-        icon: app.icon,
-        dllink: app.file.path,
-        lastup: app.updated,
-        size,
-      };
-    }
+    const q = args.join(" ");
+    let waitMsg;
 
     try {
-      const data = await download(id);
+      // React to command
+      await socket.sendMessage(sender, { react: { text: "🥺", key: msg.key } });
 
-      const text = `
-╭───────────────⭓
-│  📱 *${data.name}*
-│  📦 ᴘᴀᴄᴋᴀɢᴇ: ${data.package}
-│  📅 ᴜᴘᴅᴀᴛᴇᴅ: ${data.lastup}
-│  📏 ꜱɪᴢᴇ: ${data.size}
-│  🔗 ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ ʙᴇʟᴏᴡ ⬇️
-╰───────────────⭓
-> ᴍᴀᴅᴇ ɪɴ ʙʏ ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ`;
-      
-      if (data.icon) {
-        await socket.sendMessage(sender, {
-          image: { url: data.icon },
-          caption: text,
-        }, { quoted: msg });
-      }
-
-      // Send APK file document
-      await socket.sendMessage(sender, {
-        document: { url: data.dllink },
-        fileName: `${data.name || 'app'}.apk`,
-        mimetype: 'application/vnd.android.package-archive',
+      if (!q) return await socket.sendMessage(sender, {
+        text: "*🥺 APK download karne ke liye command ka sahi istemal karo:*\n.apk <app name>"
       }, { quoted: msg });
 
-    } catch (e) {
-      console.error(e);
-      await reply("❌ Failed to fetch or send APK info. Please check your input or try again later.");
+      // Waiting message
+      waitMsg = await socket.sendMessage(sender, { text: "*⏳ APK download ho rahi hai, thoda sa intezar kare…*" });
+
+      const apiUrl = `http://ws75.aptoide.com/api/7/apps/search/query=${encodeURIComponent(q)}/limit=1`;
+      const response = await axios.get(apiUrl);
+      const data = response.data;
+
+      if (!data || !data.datalist || !data.datalist.list.length) {
+        if (waitMsg) await socket.sendMessage(sender, { delete: waitMsg.key });
+        return await socket.sendMessage(sender, { text: "*😔 APK nahi mili, dubara try karo!*" }, { quoted: msg });
+      }
+
+      const app = data.datalist.list[0];
+      const appSize = (app.size / 1048576).toFixed(2);
+
+      // Send APK
+      await socket.sendMessage(sender, {
+        document: { url: app.file.path_alt },
+        fileName: `${app.name}.apk`,
+        mimetype: "application/vnd.android.package-archive",
+        caption: `*👑 APK NAME:* ${app.name}\n*👑 SIZE:* ${appSize} MB\n\n*BY : BILAL-MD*`
+      }, { quoted: msg });
+
+      // Delete waiting message
+      if (waitMsg) await socket.sendMessage(sender, { delete: waitMsg.key });
+
+      // React after success
+      await socket.sendMessage(sender, { react: { text: "☺️", key: msg.key } });
+
+    } catch (error) {
+      console.error("APK download error:", error);
+      if (waitMsg) await socket.sendMessage(sender, { delete: waitMsg.key });
+      await socket.sendMessage(sender, { text: "*😔 APK download nahi hui, dubara koshish karo!*" }, { quoted: msg });
+      await socket.sendMessage(sender, { react: { text: "😔", key: msg.key } });
     }
   }
 };
-
