@@ -17,11 +17,11 @@ module.exports = {
       await socket.sendMessage(sender, { react: { text: "🥺", key: msg.key } });
 
       if (!q) return await socket.sendMessage(sender, {
-        text: "*🥺 APK download karne ke liye command ka sahi istemal karo:*\n.apk <app name>"
+        text: "*AGAR AP NE KOI APP DOWNLOAD KARNI HAI 🥺* \n *TO AP ESE LIKHO 😇* \n\n *APK ❮APKI APP KA NAME❯* \n\n *TO APKI APPLICATION DOWNLOAD KAR KE YAHA PER BHEJ DE JAYE GE*"
       }, { quoted: msg });
 
       // Waiting message
-      waitMsg = await socket.sendMessage(sender, { text: "*⏳ APK download ho rahi hai, thoda sa intezar kare…*" });
+      waitMsg = await socket.sendMessage(sender, { text: "*APKI APK DOWNLOAD HO RAHI HAI 🥺 JAB DOWNLOAD COMPLETE HO JAYE GE TO YAHA PER BHEJ DE JAYE GE 😇* \n *THORA SA INTAZAR KARE...☺️*" });
 
       const apiUrl = `http://ws75.aptoide.com/api/7/apps/search/query=${encodeURIComponent(q)}/limit=1`;
       const response = await axios.get(apiUrl);
@@ -29,7 +29,7 @@ module.exports = {
 
       if (!data || !data.datalist || !data.datalist.list.length) {
         if (waitMsg) await socket.sendMessage(sender, { delete: waitMsg.key });
-        return await socket.sendMessage(sender, { text: "*😔 APK nahi mili, dubara try karo!*" }, { quoted: msg });
+        return await socket.sendMessage(sender, { text: "*APKI APK NAHI MILI SORRY 😔*" }, { quoted: msg });
       }
 
       const app = data.datalist.list[0];
