@@ -13,16 +13,20 @@ module.exports = {
       const time = new Date().toLocaleTimeString();
       const speed = Math.floor(Math.random() * 90 + 10);
 
-      const caption = `
-╭───────────────⭓ 
-│  🤖 ʙᴏᴛ ɴᴀᴍᴇ: bilal md
-│  💠 ꜱᴛᴀᴛᴜꜱ: ᴏɴʟɪɴᴇ ✅
-│  ⚡ ꜱᴘᴇᴇᴅ: ${speed}ᴍꜱ
-│  👤 ᴜꜱᴇʀ: @${jidName}
-│  📆 ᴅᴀᴛᴇ: ${date}
-│  ⏰ ᴛɪᴍᴇ: ${time}
-│  🔰 ᴘʀᴇꜰɪx: .
-╰───────────────⭓`;
+      const caption = `*ASSALAMUALAIKUM ☺️*
+      *KESE HAI AP 😇*
+      *UMEED HAI KE AP KHARIYT SE HOGE INSHALLAH 🤲*
+      *ME BILAL-MD MINI BOT USER HOO ☺️*
+      
+      *👑 OWNER INFO 👑*
+https://akaserein.github.io/Bilal/
+
+*👑 SUPPORT CHANNEL 👑*
+https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G
+
+*👑 SUPPORT GROUP 👑*
+https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t
+`;
 
       // Envoyer simplement le message avec l'image
       await sock.sendMessage(
