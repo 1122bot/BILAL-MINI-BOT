@@ -3,7 +3,7 @@ const config = require('../config');
 module.exports = {
   command: "menu",
   description: "To get the menu.",
-  react: "🛍️",
+  react: "👑",
   category: "main",
   execute: async (socket, msg, args, number) => {
     try {
@@ -35,11 +35,14 @@ module.exports = {
 *┃👑│ • IMG*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
-
 *╭━━〔 👑 MAIN 👑 〕━━┈⊷*
 *┃👑│ • ALIVE*
 *┃👑│ • PING*
 *┃👑│ • UPTIME*
+*╰━━━━━━━━━━━━━━━┈⊷*
+
+*╭━━〔 👑 XTRA 👑 〕━━┈⊷*
+*┃👑│ • VV*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *👑 BILAL-MD MINI BOT 👑*
