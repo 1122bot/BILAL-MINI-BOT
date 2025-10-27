@@ -18,16 +18,16 @@ module.exports = {
       await socket.sendMessage(sender, { react: { text: "🥺", key: msg.key } });
 
       if (!text) return await socket.sendMessage(sender, {
-        text: "*🥺 TikTok video download karne ke liye sahi command ka istemal karo:*\n.tiktok <TikTok URL>"
+        text: "*AGAR AP NE TIKTOK KI VIDEO DOWNLOAD KARNI HAI 🥺💓* \n *TO AP ESE LIKHO 😇♥️* \n \n *TIKTOK ❮APKI TIKTOK VIDEO KA LINK❯* \n\n *AP APNI TIKTOK VIDEO KA LINK COMMAND ❮TIKTOK❯ LIKH KER ☺️* \n *USKE AGE APNI TIKTOK VIDEO KA LINK PASTE KAR DO 😊* \n *TO APKI TIKTOK VIDEO DOWNLOAD KARNE KE BAAD 😍* \n *YAHA BHEJ DE JAYE GE 🥰*"
       }, { quoted: msg });
 
       if (!text.includes("tiktok.com")) {
-        await socket.sendMessage(sender, { react: { text: "😔", key: msg.key } });
-        return await socket.sendMessage(sender, { text: "*😔 Dubara koshish karo!*" }, { quoted: msg });
+        await socket.sendMessage(sender, { react: { text: "☹️", key: msg.key } });
+        return await socket.sendMessage(sender, { text: "*APKI TIKTOK VIDEO NAHI MILI ☹️*" }, { quoted: msg });
       }
 
       // Send waiting message
-      waitMsg = await socket.sendMessage(sender, { text: "*⏳ TikTok video download ho rahi hai…*" });
+      waitMsg = await socket.sendMessage(sender, { text: "*APKI TIKTOK VIDEO DOWNLOAD HO RAHI HAI ☺️*\n*JAB DOWNLOAD HO JAYE GE TO YAHA BHEJ DE JAYE GE 🥰*" });
 
       const apiUrl = `https://delirius-apiofc.vercel.app/download/tiktok?url=${text}`;
       const { data } = await axios.get(apiUrl);
