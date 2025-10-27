@@ -35,17 +35,6 @@ module.exports = {
 *┃👑│ • IMG*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
-*╭━━〔 🔎 SEARCH 〕━━┈⊷*
-*┃👑│ • TMDB*
-*┃👑│ • NEWS*
-*┃👑│ • NPM*
-*┃👑│ • FITGIRL*
-*┃👑│ • IMG*
-*┃👑│ • MOVIEDB*
-*┃👑│ • RANDOMIMAGE*
-*┃👑│ • CAT*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
 *╭━━〔 👨‍💻 OWNER 〕━━┈⊷*
 *┃👑│ • BLOCK*
 *┃👑│ • UNBLOCK*
