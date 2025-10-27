@@ -43,7 +43,7 @@ module.exports = {
 
         try {
             if (!text) return await socket.sendMessage(sender, {
-                text: "*🥺 Facebook video download karne ke liye sahi command ka istemal karo:*\n.fb <link>"
+                text: "*APKO FACEBOOK KI VIDEO DOWNLOAD KARNA HAI 🥺*\nTOH AP AISE LIKHO* \n\n *FB ❮FACEBOOK VIDEO LINK❯* \n\n *TO APKI FACEBOOK VIDEO DOWNLOAD KAR KE YAHA BHEJ DE JAYE GE ☺️❤️*"
             }, { quoted: msg });
 
             if (!text.includes("facebook.com")) return await socket.sendMessage(sender, {
@@ -51,8 +51,8 @@ module.exports = {
             }, { quoted: msg });
 
             // Waiting message
-            const waitMsg = await socket.sendMessage(sender, { text: "*⏳ Aapki Facebook video download ho rahi hai…*" }, { quoted: msg });
-            await socket.sendMessage(sender, { react: { text: "🥺", key: waitMsg.key } });
+            const waitMsg = await socket.sendMessage(sender, { text: "*APKI FACEBOOK VIDEO DOWNLOAD HO RAHI HAI ☺️ THORA SA INTAZAR KARE...❤️*" }, { quoted: msg });
+            await socket.sendMessage(sender, { react: { text: "😃", key: waitMsg.key } });
 
             const fbvid = await downloadFacebookVideo(text);
             const filePath = await saveVideo(fbvid);
@@ -61,7 +61,7 @@ module.exports = {
             await socket.sendMessage(sender, {
                 video: { url: filePath },
                 mimetype: "video/mp4",
-                caption: "BY :❯ BILAL-MD"
+                caption: "*👑 BY :❯ BILAL-MD 👑*"
             }, { quoted: msg });
 
             // React after success
