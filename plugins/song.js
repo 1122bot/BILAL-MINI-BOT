@@ -1,153 +1,68 @@
-const axios = require('axios');
-const yts = require('yt-search');
-const ddownr = require('denethdev-ytmp3');
-const sharp = require('sharp');
-
-const activeReplyHandlers = new Map(); // ✅ Prevent duplicate replies per message
+const fetch = require('node-fetch');
 
 module.exports = {
-  command: "song",
-  description: "Download a YouTube song in voice note, document, or normal format",
-  react: "🎵",
+  command: 'song',
+  alias: ["play","mp3","audio","music","s","so","son","songs"],
+  description: "Download YouTube song (Audio) via Nekolabs API",
   category: "download",
-
+  react: "🥺",
+  usage: ".song <song name>",
   execute: async (socket, msg, args) => {
-    const from = msg.key.remoteJid;
-    const sender = msg.key.participant || from;
-    const input = args.join(" ").trim();
+    const sender = msg.key.remoteJid;
+    const text = args.join(" ");
 
-    const getThumbnailBuffer = async (url) => {
-      try {
-        const { data } = await axios.get(url, { responseType: 'arraybuffer' });
-        return await sharp(data).resize(300, 300).jpeg({ quality: 80 }).toBuffer();
-      } catch (err) {
-        console.error("Thumbnail Error:", err);
-        return null;
-      }
-    };
-
-    const extractYouTubeId = (url) => {
-      const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-      const match = url.match(regex);
-      return match ? match[1] : null;
-    };
-
-    const convertToYoutubeLink = (query) => {
-      const id = extractYouTubeId(query);
-      return id ? `https://www.youtube.com/watch?v=${id}` : query;
-    };
-
-    if (!input) {
-      return await socket.sendMessage(from, {
-        text: "❌ *Please provide a YouTube title or link!*\n\nExample: *.song Faded Alan Walker*",
+    if (!text) {
+      return await socket.sendMessage(sender, {
+        text: "*🥺 Audio download karne ke liye command ka sahi istemal karo:*\n.song <song name>"
       }, { quoted: msg });
     }
 
     try {
-      const fixedQuery = convertToYoutubeLink(input);
-      const search = await yts(fixedQuery);
-      const data = search.videos[0];
+      // 🔹 API Call (Nekolabs)
+      const apiUrl = `https://api.nekolabs.my.id/downloader/youtube/play/v1?q=${encodeURIComponent(text)}`;
+      const res = await fetch(apiUrl);
+      const data = await res.json();
 
-      if (!data) {
-        return await socket.sendMessage(from, {
-          text: "❌ No matching result found.",
-        }, { quoted: msg });
+      if (!data?.success || !data?.result?.downloadUrl) {
+        return await socket.sendMessage(sender, { text: "*😔 Audio nahi mila!*" }, { quoted: msg });
       }
 
-      const result = await ddownr.download(data.url, 'mp3');
-      const downloadLink = result.downloadUrl;
+      const meta = data.result.metadata;
+      const dlUrl = data.result.downloadUrl;
 
-      
-      const caption =
-`
-╭───────────────⭓  
-│  
-│  🎼 *${data.title}*
-│  📅 ᴜᴘʟᴏᴀᴅᴇᴅ: ${data.ago}
-│  ⏱️ ᴅᴜʀᴀᴛɪᴏɴ: ${data.timestamp}
-│  👁️ ᴠɪᴇᴡꜱ: ${data.views}
-│  🔗 ᴜʀʟ: ${data.url}
-│  
-│  🔢 *ʀᴇᴘʟʏ ᴡɪᴛʜ ᴛʜᴇ ɴᴜᴍʙᴇʀ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ:*
-│  
-│  ╭─────────────●●►
-│  ├ 🔊 *1* ᴠᴏɪᴄᴇ ɴᴏᴛᴇ
-│  ├ 📁 *2* ᴅᴏᴄᴜᴍᴇɴᴛ ꜰɪʟᴇ
-│  ├ 🎵 *3* ɴᴏʀᴍᴀʟ ᴀᴜᴅɪᴏ
-│  ╰─────────────●●►
-│  
-╰───────────────⭓
-● ᴍᴀᴅᴇ ʙʏ BILAL MD ●
-`;
+      // 🔹 Try fetching the thumbnail
+      let buffer;
+      try {
+        const thumbRes = await fetch(meta.cover);
+        buffer = Buffer.from(await thumbRes.arrayBuffer());
+      } catch {
+        buffer = null;
+      }
 
-      const sentMsg = await socket.sendMessage(from, {
-        image: { url: data.thumbnail },
-        caption
+      // 🔹 Song info card
+      const caption = `*🎵 AUDIO INFORMATION 🎵*
+*Name:* ${meta.title}
+*Channel:* ${meta.channel}
+*Duration:* ${meta.duration}
+*BILAL-MD WHATSAPP BOT*`;
+
+      // 🖼️ Send thumbnail + info
+      if (buffer) {
+        await socket.sendMessage(sender, { image: buffer, caption }, { quoted: msg });
+      } else {
+        await socket.sendMessage(sender, { text: caption }, { quoted: msg });
+      }
+
+      // 🎧 Send MP3 file
+      await socket.sendMessage(sender, {
+        audio: { url: dlUrl },
+        mimetype: "audio/mpeg",
+        fileName: `${meta.title.replace(/[\\/:*?"<>|]/g, "").slice(0, 80)}.mp3`
       }, { quoted: msg });
 
-      const msgId = sentMsg.key.id;
-      if (activeReplyHandlers.has(msgId)) return; // already handled
-
-      const messageListener = async (messageUpdate) => {
-        try {
-          const mek = messageUpdate.messages?.[0];
-          if (!mek?.message) return;
-
-          const replyTo = mek.message.extendedTextMessage?.contextInfo?.stanzaId;
-          if (replyTo !== msgId) return;
-
-          const text = mek.message.conversation || mek.message.extendedTextMessage?.text;
-          if (!text) return;
-
-          await socket.sendMessage(from, { react: { text: "✅", key: mek.key } });
-
-          switch (text.trim()) {
-            case "1": // Voice Note
-              await socket.sendMessage(from, {
-                audio: { url: downloadLink },
-                mimetype: "audio/mpeg",
-                ptt: true
-              }, { quoted: mek });
-              break;
-
-            case "2": // Document
-              await socket.sendMessage(from, {
-                document: { url: downloadLink },
-                mimetype: "audio/mpeg",
-                jpegThumbnail: await getThumbnailBuffer(data.thumbnail),
-                fileName: `${data.title}.mp3`,
-                caption: `${data.title}\n\n> ᴍɪɴɪ bilal md`
-              }, { quoted: mek });
-              break;
-
-            case "3": // Normal Audio
-              await socket.sendMessage(from, {
-                audio: { url: downloadLink },
-                mimetype: "audio/mpeg",
-                ptt: false
-              }, { quoted: mek });
-              break;
-
-            default:
-              await socket.sendMessage(from, {
-                text: "❌ Invalid option. Please reply with *1*, *2*, or *3*.",
-              }, { quoted: mek });
-          }
-
-        } catch (err) {
-          console.error("Listener Error:", err);
-        }
-      };
-
-      socket.ev.on("messages.upsert", messageListener);
-      activeReplyHandlers.set(msgId, true);
-
-    } catch (e) {
-      console.error("Song Error:", e);
-      await socket.sendMessage(from, {
-        text: `⚠️ *Error occurred:* ${e.message || "Unknown error"}`,
-      }, { quoted: msg });
+    } catch (err) {
+      console.error("Audio download error:", err);
+      await socket.sendMessage(sender, { text: "*😔 Dubara koshish karo!*" }, { quoted: msg });
     }
   }
 };
-    
