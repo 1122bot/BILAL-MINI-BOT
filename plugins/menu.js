@@ -26,29 +26,13 @@ module.exports = {
 *HI ${pushname} 🥰*
 *HERE IS YOUR MENU 🌹*
 
-*╭━━〔 🌐 GENERAL 〕━━┈⊷*
-*┃👑│ • ALIVE*
-*┃👑│ • PING*
-*┃👑│ • SYSTEM*
-*┃👑│ • SUPPORT*
-*┃👑│ • OWNER*
-*┃👑│ • PAIR*
-*┃👑│ • MENU*
-*┃👑│ • DEVOL0PCOUNT*
-*┃👑│ • FORWARD*
-*┃👑│ • LIST*
-*┃👑│ • GROUPLINK*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
 *╭━━〔 📥 DOWNLOAD 〕━━┈⊷*
 *┃👑│ • SONG*
 *┃👑│ • VIDEO*
 *┃👑│ • TIKTOK*
-*┃👑│ • FACEBOOK*
+*┃👑│ • FB*
 *┃👑│ • APK*
 *┃👑│ • IMG*
-*┃👑│ • SLANIMECLUB*
-*┃👑│ • GAMEDL*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *╭━━〔 🔎 SEARCH 〕━━┈⊷*
