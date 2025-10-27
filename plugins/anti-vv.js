@@ -2,7 +2,7 @@ module.exports = {
   command: 'vv',
   description: 'Owner Only - Retrieve view-once media',
   category: 'main',
-  react: '🐳',
+  react: '😃',
   execute: async (socket, msg, args, number) => {
     const sender = msg.key.remoteJid;
     const isOwner = msg.key.fromMe; // Mini bot me usually owner ka check
@@ -15,7 +15,7 @@ module.exports = {
 
     if (!msg.quoted) {
       return await socket.sendMessage(sender, {
-        text: "*🍁 Please reply to a view-once message.*"
+        text: "*AP KISI PRIVATE PHOTO , VIDEO , YA AUDIO KO MENTION KAR KE 🥺* \n*PHIR ESE LIKHO ☺️* \n\n*❮VV❯* \n\n*PHIR DEKHO KAMAL 😎*"
       }, { quoted: msg });
     }
 
