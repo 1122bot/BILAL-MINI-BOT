@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 async function downloadFacebookVideo(url) {
-    const apiUrl = `https://api.princetechn.com/api/download/facebook?apikey=prince&url=${encodeURIComponent(url)}`;
+    const apiUrl = `https://lance-frank-asta.onrender.com/api/downloader=${encodeURIComponent(url)}`;
     const res = await axios.get(apiUrl, { timeout: 40000 });
 
     if (!res.data || res.data.status !== 200 || !res.data.success || !res.data.result) {
