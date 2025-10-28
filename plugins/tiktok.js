@@ -29,9 +29,9 @@ module.exports = {
       // Send waiting message
       waitMsg = await socket.sendMessage(sender, { text: "*APKI TIKTOK VIDEO DOWNLOAD HO RAHI HAI ☺️*\n*JAB DOWNLOAD HO JAYE GE TO YAHA BHEJ DE JAYE GE 🥰*" });
 
-      const apiUrl = `https://delirius-apiofc.vercel.app/download/tiktok?url=${text}`;
+      const apiUrl = `https://lance-frank-asta.onrender.com/api/tikdl?url=${text}`;
       const { data } = await axios.get(apiUrl);
-
+      
       if (!data.status || !data.data) {
         if (waitMsg) await socket.sendMessage(sender, { delete: waitMsg.key });
         await socket.sendMessage(sender, { react: { text: "😔", key: msg.key } });
