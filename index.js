@@ -32,7 +32,7 @@ const config = {
     AUTO_VIEW_STATUS: 'true',
     AUTO_VOICE: 'true',
     AUTO_LIKE_STATUS: 'true',
-    AUTO_RECORDING: 'true',
+    AUTO_RECORDING: 'false',
     HEROKU_APP_URL: 'https://bilal-md-deploy-1x.vercel.app/',
     AUTO_LIKE_EMOJI: ['🥹', '👍', '😍', '💗', '🎈', '🎉', '🥳', '😎', '🚀', '🔥'],
     PREFIX: '.',
@@ -169,9 +169,9 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         ? `Joined (ID: ${groupResult.gid})`
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
-        'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²',
+        'ᴍɪɴɪ BILAL-MD ᴠ²',
         `📞 Number: ${number}\n🩵 Status: Connected`,
-        'ᴍᴀᴅᴇ ʙʏ ɪɴᴄᴏɴɴᴜ ʙᴏʏ'
+        'ᴍᴀᴅᴇ ʙʏ BILAL-KING '
     );
 
     for (const admin of admins) {
@@ -972,7 +972,7 @@ router.get('/active', (req, res) => {
 router.get('/ping', (req, res) => {
     res.status(200).send({
         status: 'active',
-        message: 'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ² is running',
+        message: 'ᴍɪɴɪ BILAL-MD ᴠ² is running',
         activesession: activeSockets.size
     });
 });
