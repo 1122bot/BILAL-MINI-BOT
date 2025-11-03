@@ -1,22 +1,73 @@
-module.exports = {
-  command: "demote",
-  desc: "Remove admin role",
-  category: "group",
-  use: ".demote @user or reply",
-  fromMe: true,
-  filename: __filename,
+// 🌟 Code by bilal
+const { cmd } = require('../command');
 
-  execute: async (sock, msg) => {
-    const { remoteJid } = msg.key;
-    const mentioned = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
-    const isReply = msg.message?.extendedTextMessage?.contextInfo?.participant;
+cmd({
+    pattern: "demote",
+    alias: ["d", "dismiss", "removeadmin", "dmt"],
+    desc: "Demotes a group admin to a normal member",
+    category: "admin",
+    react: "🥺",
+    filename: __filename
+},
+async (conn, mek, m, {
+    from, quoted, q, isGroup, sender, botNumber, isBotAdmins, isAdmins, reply
+}) => {
 
-    const targets = mentioned.length ? mentioned : isReply ? [msg.message.extendedTextMessage.contextInfo.participant] : [];
+    // 🥺 react on command start
+    await conn.sendMessage(from, { react: { text: "🥺", key: m.key } });
 
-    if (!targets.length) return sock.sendMessage(remoteJid, { text: "❗ Mention or reply to demote." }, { quoted: msg });
-
-    for (let user of targets) {
-      await sock.groupParticipantsUpdate(remoteJid, [user], "demote");
+    // ⚠️ Group check
+    if (!isGroup) {
+        await conn.sendMessage(from, { react: { text: "😫", key: m.key } });
+        return reply("*YEH COMMAND SIRF GROUPS ME USE KAREIN ☺️❤️*");
     }
-  }
-};
+
+    // 👮 User admin check
+    if (!isAdmins) {
+        await conn.sendMessage(from, { react: { text: "😥", key: m.key } });
+        return reply("*YEH COMMAND SIRF GROUP ADMINS USE KAR SAKTE HAI 🥺*");
+    }
+
+    // 🤖 Bot admin check
+    if (!isBotAdmins) {
+        await conn.sendMessage(from, { react: { text: "😎", key: m.key } });
+        return reply("*PEHLE MUJHE IS GROUP ME ADMIN BANAO ☺️❤️*");
+    }
+
+    // 🧩 Number detection
+    let number;
+    if (m.quoted) {
+        number = m.quoted.sender.split("@")[0];
+    } else if (q && q.includes("@")) {
+        number = q.replace(/[@\s]/g, '');
+    } else {
+        await conn.sendMessage(from, { react: { text: "🥺", key: m.key } });
+        return reply(`*AP NE KIS ADMIN KO DISSMISS KARNA HAI 🥺* 
+*US ADMIN KO MENTION YA USKE MSG KO REPLY KARO ☺️* 
+*PHIR LIKHO 🥺👇*
+
+*❮DEMOTE❯*
+
+*TO US ADMIN KO ADMIN KI POST SE HATA DIYA JAYEGA 😇🌹*`);
+    }
+
+    if (number === botNumber) {
+        await conn.sendMessage(from, { react: { text: "😔", key: m.key } });
+        return reply("*SORRY G, MUJHE ADMIN SE HATA NAHI SAKTE 🥺❤️*");
+    }
+
+    const jid = number + "@s.whatsapp.net";
+
+    try {
+        // 👇 Demote kar do
+        await conn.groupParticipantsUpdate(from, [jid], "demote");
+
+        await conn.sendMessage(from, { react: { text: "☹️", key: m.key } });
+        reply(`*+${number} KO ADMIN SE DISSMISS KAR DIYA GAYA HAI 🥺💔*`, { mentions: [jid] });
+
+    } catch (error) {
+        console.error("❌ DEMOTE ERROR:", error);
+        await conn.sendMessage(from, { react: { text: "😔", key: m.key } });
+        reply("*DUBARA KOSHISH KAREIN 🥺❤️*");
+    }
+});
