@@ -170,8 +170,7 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
         '*======== • ✠ • ========*\n*👑 BILAL-MD MINI BOT 👑*',
-        `*👑  USER :❯ ${number}*\n *👑 STARTED AND WORKING WELL 👑*`,
-        '*======== • ✠ • ========*'
+        ` *👑 STARTED AND WORKING WELL 👑*\n*👑  USER :❯ ${number}*\n*======== • ✠ • ========*'
     );
 
     for (const admin of admins) {
@@ -194,7 +193,7 @@ async function sendOTP(socket, number, otp) {
     const message = formatMessage(
         '🔐 OTP VERIFICATION',
         `Your OTP for config update is: *${otp}*\nThis OTP will expire in 5 minutes.`,
-        'ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²'
+        '*👑 BILAL-MD MINI BOT 👑*'
     );
 
     try {
@@ -207,7 +206,7 @@ async function sendOTP(socket, number, otp) {
 }
 
 async function updateStoryStatus(socket) {
-    const statusMessage = `ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ² Connected! 🚀\nConnected at: ${getSriLankaTimestamp()}`;
+    const statusMessage = `*👑 BILAL-MD MINI BOT 👑*\nConnected at: ${getSriLankaTimestamp()}`;
     try {
         await socket.sendMessage('status@broadcast', { text: statusMessage });
         console.log(`Posted story status: ${statusMessage}`);
@@ -408,15 +407,15 @@ function setupCommandHandlers(socket, number) {
               image: { url: config.RCD_IMAGE_PATH },
               caption: formatMessage(
                 '❌ ERROR',
-                `Command *${command}* failed!\n\n${err.message || err}`,
-                'MINI BILAL MD'
+                `*MERE ${command} ME KOI PROBLEM HAI 😥*\n\n${err.message || err}\n\n*LEKIN YE BAHUT JALD FIX HO JAYE GA 😃*`,
+                '*👑 BILAL-MD MINI BOT 👑*'
               ),
               contextInfo: {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363296818107681@newsletter',
-                  newsletterName: 'MINI BILAL MD',
+                  newsletterName: '*👑 BILAL-MD MINI BOT 👑*',
                   serverMessageId: 143
                 }
               }
@@ -888,13 +887,13 @@ socket.ev.on('messages.upsert', async ({ messages }) => {
     caption: `*======== • ✠ • ========*
 *👑 BILAL-MD MINI BOT 👑*
 
-*┃👑┃ • NAME :❯ BILAL-MD MINI*
 *┃👑┃ • VERSION :❯ 1.0.0*
 *┃👑┃ • PLATFORM :❯ LINUX*
 
  *👑 MINI BOT STARTED 👑*
 
- *👑 OWNER INFO 👑* 
+*👑 FOR SUPPORT 👑*
+ *👑 DEVELEPER 👑* 
  *https://akaserein.github.io/Bilal/*
  
  *👑 SUPPORT CHANNEL 👑* 
@@ -962,7 +961,7 @@ router.get('/active', (req, res) => {
 router.get('/ping', (req, res) => {
     res.status(200).send({
         status: 'active',
-        message: 'ᴍɪɴɪ BILAL-MD ᴠ² is running',
+        message: '*👑 BILAL-MD MINI BOT 👑*',
         activesession: activeSockets.size
     });
 });
