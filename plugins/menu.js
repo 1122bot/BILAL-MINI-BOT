@@ -46,6 +46,11 @@ module.exports = {
 *┃👑│ • DELETE*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
+
+*╭━━〔 👑 USER 👑 〕━━┈⊷*
+*┃👑│ • BLOCK*
+*┃👑│ • UNBLOCK*
+*╰━━━━━━━━━━━━━━━┈⊷*
 *👑 BILAL-MD MINI BOT 👑*
 `;
 
