@@ -6,6 +6,8 @@ const {
 
 module.exports = {
   command: "forward",
+  alias: ["fwd"],
+  react: "😊",
   description: "Forward replied or sent message to given JID",
 
   async execute(sock, msg, args) {
