@@ -16,15 +16,15 @@ module.exports = {
 *╭━━━〔 🤖 BILAL MD 〕━━━┈⊷*
 *┃👑╭──────────────────*
 *┃👑│ USER :❯ ${pushname}*
-*┃👑│ JID  :❯ @${sender.split("@")[0]}*
 *┃👑│ MODE :❯ PUBLIC*
 *┃👑│ PREFiX :❯ ${config.PREFIX}*
-*┃👑│ VERSION :❯ 2.0.0*
+*┃👑│ VERSION :❯ 1.0.0*
 *┃👑╰──────────────────*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
-*HI ${pushname} 🥰*
-*HERE IS YOUR MENU 🌹*
+*HI ${pushname} G 🥰*
+*MERE BOT KA MENU 🌹*
+*YEH HAI G 😊*
 
 *╭━━〔 👑 MAIN 👑 〕━━┈⊷*
 *┃👑│ • SONG*
@@ -43,6 +43,7 @@ module.exports = {
 
 *╭━━〔 👑 XTRA 👑 〕━━┈⊷*
 *┃👑│ • VV*
+*┃👑│ • DELETE*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *👑 BILAL-MD MINI BOT 👑*
@@ -58,7 +59,7 @@ module.exports = {
           isForwarded: true,
           forwardedNewsletterMessageInfo: {
             newsletterJid: '120363296818107681@newsletter',
-            newsletterName: 'MINI BILAL MD',
+            newsletterName: '*👑 BILAL-MD MINI BOT 👑*',
             serverMessageId: 143
           }
         }
