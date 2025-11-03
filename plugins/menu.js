@@ -13,7 +13,7 @@ module.exports = {
 
       // Nouveau style BiLAL-MD 
       const menumsg = `
-*╭━━━〔 🤖 BILAL MD 〕━━━┈⊷*
+*╭━━━〔 👑 BILAL MD 👑 〕━━━┈⊷*
 *┃👑╭──────────────────*
 *┃👑│ USER :❯ ${pushname}*
 *┃👑│ MODE :❯ PUBLIC*
