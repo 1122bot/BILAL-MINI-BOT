@@ -40,12 +40,12 @@ const groupAdmins = isGroup ? await getGroupAdmins(participants) : ''
 
 
 if (!isAdmins) {
-await socket.sendMessage(from, { text: "ONLY ADMINS CAN USE THIS CMD 🪄♻️" }, { quoted: msg });
+await socket.sendMessage(from, { text: "*YEH COMMAND SIRF ADMINS USE KAR SAKTE HAI ☺️❤️*" }, { quoted: msg });
                }
     
 
     if (!msg.message?.extendedTextMessage?.contextInfo?.stanzaId) {
-      return await socket.sendMessage(from, { text: "❗ Please reply to the message you want to delete." }, { quoted: msg });
+      return await socket.sendMessage(from, { text: "*AP NE KON SA MSG DELETE KARNA HAI 😊 PEHLE USE MENTION KARO 😇 AUR PHIR LIKHO COMMAND ❮DELETE❯ TO WO MSG DELETE HO JAYE GA 🥳*" }, { quoted: msg });
     }
 
     
