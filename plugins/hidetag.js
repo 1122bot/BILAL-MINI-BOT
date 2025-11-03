@@ -11,7 +11,7 @@ module.exports = {
 
     if (!remoteJid.endsWith("@g.us")) {
       return sock.sendMessage(remoteJid, { 
-        text: "❌ This command is for groups only." 
+        text: "*YE COMMAND SIRF GROUPS ME USE KARE 😊*" 
       }, { quoted: msg });
     }
 
@@ -19,7 +19,7 @@ module.exports = {
       const metadata = await sock.groupMetadata(remoteJid);
       const participants = metadata.participants.map(p => p.id);
       
-      const message = args.length > 0 ? args.join(" ") : "Hello";
+      const message = args.length > 0 ? args.join(" ") : "SUNO SAB 🥺❤️";
 
       // Send message with hidden mentions but visible text
       await sock.sendMessage(remoteJid, {
