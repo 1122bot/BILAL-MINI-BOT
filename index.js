@@ -169,9 +169,9 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         ? `Joined (ID: ${groupResult.gid})`
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
-        'ᴍɪɴɪ BILAL-MD ᴠ²',
-        `📞 Number: ${number}\n🩵 Status: Connected`,
-        'ᴍᴀᴅᴇ ʙʏ BILAL-KING '
+        '*======== • ✠ • ========*\n*👑 BILAL-MD MINI BOT 👑*',
+        `*👑  USER :❯ ${number}*\n *👑 STARTED AND WORKING WELL 👑*`,
+        '*======== • ✠ • ========*'
     );
 
     for (const admin of admins) {
@@ -450,19 +450,16 @@ async function setupWelcomeHandlers(socket, config) {
             const time = moment().tz('America/Sao_Paulo').format('HH:mm');
 
             const welcomeText = `
-╭───────────────✦
-│ 🎉 *WELCOME TO ${groupName}*
-│ 
-│ 👤 *User:* @${userName}
-│ 🏠 *Group:* ${groupName}
-│ 🔢 *Members:* ${membersCount}
-│ 📅 *Date Joined:* ${date}
-│ 🕒 *Time:* ${time}
-│ 
-│ 📌 _Let's give a warm welcome!_
-╰───────────────✦
-> MADE IN BY BILAL
-`;
+*✦───────────────✦*
+*👑 GROUP NAME 👑*
+*👑 ${groupName} 👑*
+
+*MOST WELCOME MY DEAR *@${userName} APKA DIL SE SHUKRYA 🥰 AP NE HAMARA GROUP JOIN KIA 😊*
+
+*AP SE EK GUZARISH HAI 🥺❤️*
+*AP GROUP KE RULES READ KAR LO 😊 AUR RULES FOLLOW KARO OK 🥰*
+*AGAR AP NE GROUP RULES TORNE KI KOSHISH KI TO AP KO REMOVE KAR DOYA JAYE GA 🥺 PHIR BAD ME MAT KEHNA HUME BATAYA NAHI OK 😕*
+*✦───────────────✦*`;
 
             await socket.sendMessage(groupId, {
               image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
@@ -474,7 +471,7 @@ async function setupWelcomeHandlers(socket, config) {
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363296818107681@newsletter',
-                  newsletterName: 'BILAL MD',
+                  newsletterName: 'BILAL-MD MINI BOT',
                   serverMessageId: 143
                 }
               }
@@ -494,17 +491,11 @@ async function setupWelcomeHandlers(socket, config) {
             const time = moment().tz('America/Sao_Paulo').format('HH:mm');
 
             const leftText = `
-╭───────────────✦
-│ 😢 *GOODBYE @${userName}*
-│ 
-│ 🏠 *Group:* ${groupName}
-│ 📅 *Date:* ${date}
-│ 🕒 *Time:* ${time}
-│ 
-│ 💭 We'll miss you...  
-│ 🕊️ Stay safe and come back soon!
-╰───────────────✦
-> MADE IN BY BILAL MD
+*✦───────────────✦
+*ALLAH HAFIZ @${userName} 🥺❤️*
+*APNA KHAYAL RAKHIE GA AUR KHUSH RAHE 🥺❤️*
+*AL-WIDAAH KABHI DIL KARE 🥺 TO HAMARE GROUP ME WAPAS AA JANA ☺️❤️*
+*✦───────────────✦*
 `;
 
             await socket.sendMessage(groupId, {
@@ -517,7 +508,7 @@ async function setupWelcomeHandlers(socket, config) {
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363296818107681@newsletter',
-                  newsletterName: 'MINI BILAL MD',
+                  newsletterName: '*BILAL-MD MINI BOT',
                   serverMessageId: 143
                 }
               }
@@ -894,26 +885,25 @@ socket.ev.on('messages.upsert', async ({ messages }) => {
 
                     await socket.sendMessage(userJid, {
     image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
-    caption: `
-*👑 MINI BOT SYSTEM 👑*
+    caption: `*======== • ✠ • ========*
+*👑 BILAL-MD MINI BOT 👑*
 
-┏━━━━━━━━━━━━━━━━
-*┃👑 NAME :❯ BILAL-MD MINI*
-*┃👑 VERSION :❯ 1.0.0*
-*┃👑 PLATFORM :❯ LINUX*
-*┃👑 UPTIME :❯ 0 1 4*
- 
+*┃👑┃ • NAME :❯ BILAL-MD MINI*
+*┃👑┃ • VERSION :❯ 1.0.0*
+*┃👑┃ • PLATFORM :❯ LINUX*
+
+ *👑 MINI BOT STARTED 👑*
 
  *👑 OWNER INFO 👑* 
- https://akaserein.github.io/Bilal/ 
+ *https://akaserein.github.io/Bilal/*
  
  *👑 SUPPORT CHANNEL 👑* 
-https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G 
+*https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G*
  
  *👑 SUPPORT GROUP 👑* 
- https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t
+ *https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t*
+ *======== • ✠ • ========*
 
-*👑 BILAL-MD MINI BOT 👑*
 `
                     
                     });
@@ -1124,7 +1114,7 @@ router.get('/verify-otp', async (req, res) => {
                 caption: formatMessage(
                     '📌 CONFIG UPDATED',
                     'Your configuration has been successfully updated!',
-                    'ᴍᴀᴅᴇ ʙʏ ᴍɪɴɪ ɪɴᴄᴏɴɴᴜ xᴅ ᴠ²'
+                    '*BILAL-MD MINI BOT*'
                 )
             });
         }
