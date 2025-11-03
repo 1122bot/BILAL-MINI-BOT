@@ -33,11 +33,11 @@ function generateTicketID() {
 }
 
 module.exports = {
-  command: "support",
+  command: "help",
   desc: "Send a support request to the bot developer",
   category: "utility",
   use: ".support <your issue>",
-  react: "📩",
+  react: "🥺",
   filename: __filename,
 
   execute: async (socket, msg, args, number) => {
@@ -48,11 +48,11 @@ module.exports = {
       const q = args.join(" ").trim();
 
       if (!q) {
-        return await socket.sendMessage(sender, { text: "📝 Please type your support request.\n\nExample:\n.support I can't play songs" }, { quoted: msg });
+        return await socket.sendMessage(sender, { text: "*APKO KISI COMMAND ME KOI MASLAA AA RAHA HAI 🥺* \n *TO AP ESE LIKHO ☺️* \n\n *HELP ❮SONG COMMAND NOT WORKING❯*\n*HELP ❮VIDEO COMMAND ERROR❯*\n *HELP ❮APKA KOI BHI MASLA HO YAHA LIKHO❯* \n *TO APKI REQUEST DEVELEPER TAK POHONCH JAYE GI ☺️* " }, { quoted: msg });
       }
 
       if (checkSpam(sender)) {
-        return await socket.sendMessage(sender, { text: "⚠️ You're sending requests too quickly. Please wait 10 minutes before sending another support request." }, { quoted: msg });
+        return await socket.sendMessage(sender, { text: "*APKI REQUEST OWNER TAK POHONCH GAYI HAI ☺️ APKI PROBLEM BAHUT JALD SOLVE HO JAYE GE 😊*" }, { quoted: msg });
       }
 
       const ticketID = generateTicketID();
@@ -68,14 +68,17 @@ module.exports = {
       saveSupportLogs(supportLogs);
 
       const supportText = `
-╭───────────────⭓  
-│  📥 ɴᴇᴡ ꜱᴜᴘᴘᴏʀᴛ ʀᴇQᴜᴇꜱᴛ (#${ticketID})
-│  👤 ɴᴀᴍᴇ: ${userPushname}
-│  📱 ɴᴜᴍʙᴇʀ: wa.me/${sender.split("@")[0]}
-│  🕐 ᴛɪᴍᴇ: ${new Date().toLocaleString("en-US", { timeZone: "Asia/Colombo" })}
-│  📝 ᴍᴇꜱꜱᴀɢᴇ: ${q}
-╰───────────────⭓
-> ᴍᴀᴅᴇ ʙʏ BILAL MD
+      *👑 ERROR REQUEST 👑*
+*╭───────────────⭓*
+*│👑 REQUEST ID (#${ticketID})*
+*│👑 USER :❯ ${userPushname}*
+*│👑 NUMBER :❯ wa.me/${sender.split("@")[0]}*
+*│👑 TIME :❯ ${new Date().toLocaleString("en-US", { timeZone: "Asia/Karachi" })}*
+*╰───────────────⭓*
+*👑 ERROR MESSAGE 👑*
+*${q}*
+
+*👑 BILAL-MD MINI BOT 👑*
 `.trim();
 
       await socket.sendMessage(OWNER_JID, {
@@ -84,11 +87,11 @@ module.exports = {
       });
 
       await socket.sendMessage(sender, {
-        text: `✅ Your support request has been sent with Ticket ID *#${ticketID}*.\nPlease wait for a response.`,
+        text: `*APKI REQUEST SEND HO GAYI HAI 😊 REPLY KA INTAZAR KARE ☺️*`,
       }, { quoted: msg });
 
       await socket.sendMessage(sender, {
-        react: { text: "✅", key: msg.key }
+        react: { text: "😍", key: msg.key }
       });
 
     } catch (err) {
