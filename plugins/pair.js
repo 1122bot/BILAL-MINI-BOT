@@ -12,10 +12,10 @@ module.exports = {
 
   execute: async (socket, msg, args) => {
     const messages = {
-      invalid: "❌ Please provide a valid phone number with country code\nExample: .pair +554411453097",
-      failed: "❌ Failed to retrieve pairing code. Please try again later.",
-      done: "> *MINI BILAL PAIRING COMPLETED ✅*",
-      error: "❌ An error occurred while getting pairing code. Please try again later.",
+      invalid: "APKO BILAL-MINI BOT KA PAIR CODE CHAHYE 🤔*\n*TO AP ESE LIKHO ☺️\n\n*PAIR +923078071982*\n\n *JAB AP ESE LIKHO GE 😇 TO APKO BILAL-MD MINI BOT KA PAIR CODE MIL JAYE GA 😃 WO AP APNI WHATSAPP ME LOGIN KAR LENA 😍 APKA MINI BOT ACTIVATE HO JAYE GA 🥰* ",
+      failed: "*THORI DER BAD KOSHISH KARE 🥺❤️*",
+      done: "*👑 BILAL-MD MINI BOT 👑*\nn *PAIR CODE COMPLETED 😇❤️*",
+      error: "*APKE NUMBER PER PAIR CODE CONNECT NAHI HO RAHA ☹️",
     };
 
     try {
@@ -30,13 +30,7 @@ module.exports = {
         return socket.sendMessage(
           msg.key?.remoteJid || senderId,
           {
-            text: `🧩 *Pairing System*
-
-To pair your account, please use:
-*➡️ .pair <your_number>*
-
-📌 Example:
-.pair 923078071982`,
+            text: `*BILAL-MD MINI BOT APKE NUMBER PER LAGANE KE LIE ☺️*\n*AP ESE LIKHO 😇*\n\n *.PAIR ❮+923078071982❯*\n\n *IS NUMBER KI JAGAH AP APNA NUMBER LIKHNA OK 😊 FIR APKO PAIRING CODE MIL JAYE GA 😃 AP WO PAIRING CODE APNE WHATSAPP ME LOGIN KAR LENA 😌 PHIR BILAL-MD MINI BOT APKE NUMBER PER ACTIVE HO JAYE GA 😍*`,
           },
           { quoted: msg }
         );
@@ -63,21 +57,7 @@ To pair your account, please use:
 
       const pairingCode = response.data.code;
 
-      const otpCaption = `🔐 *PAIRING OTP SENT!*
-
-📞 *Number:* _${phoneNumber}_
-📤 *Status:* _OTP sent successfully_
-
-🔎 Check your WhatsApp messages on that number.
-
-✅ Use this OTP to complete your pairing:
-*➡️ .pair ${phoneNumber}*
-
-🕐 *Note:* OTP is valid for a limited time. Complete pairing quickly!
-
-- your paircode is - ${pairingCode}
-
-✨ Powered by *BILAL*`;
+      const otpCaption = `${pairingCode}`;
 
       await socket.sendMessage(
         msg.key?.remoteJid || senderId,
