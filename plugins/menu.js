@@ -39,6 +39,7 @@ module.exports = {
 *┃👑│ • ALIVE*
 *┃👑│ • PING*
 *┃👑│ • UPTIME*
+*┃👑│ • SYSTEM*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *╭━━〔 👑 XTRA 👑 〕━━┈⊷*
@@ -55,7 +56,12 @@ module.exports = {
 *┃👑│ • BLOCK*
 *┃👑│ • UNBLOCK*
 *╰━━━━━━━━━━━━━━━┈⊷*
-*👑 BILAL-MD MINI BOT 👑*
+
+*╭━━〔 👑 AI 👑 〕━━┈⊷*
+*┃👑│ • AI*
+*╰━━━━━━━━━━━━━━━┈⊷*
+
+
 `;
 
       // Envoi du menu avec image et contextInfo stylisé
@@ -68,7 +74,7 @@ module.exports = {
           isForwarded: true,
           forwardedNewsletterMessageInfo: {
             newsletterJid: '120363296818107681@newsletter',
-            newsletterName: '*👑 BILAL-MD MINI BOT 👑*',
+            newsletterName: 'BILAL-MD MINI BOT',
             serverMessageId: 143
           }
         }
