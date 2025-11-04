@@ -17,23 +17,15 @@ module.exports = {
             const cpuInfo = os.cpus()[0].model;
 
             const caption = `
-╭───────────────⭓
-│   
-│  🤖 ᴘʟᴀᴛꜰᴏʀᴍ: ${os.platform()}
-│  🖥️ ᴀʀᴄʜ: ${os.arch()}
-│  💾 ᴜᴘᴛɪᴍᴇ: ${formattedUptime}
-│  🧠 ʀᴀᴍ ᴜꜱᴀɢᴇ: ${usedMemory} ᴍʙ / ${totalMem} ᴍʙ
-│  ⚙️ ꜰʀᴇᴇ ᴍᴇᴍᴏʀʏ: ${freeMem} ᴍʙ
-│  🔌 ᴄᴘᴜ: ${cpuInfo}
-│  
-│  ⚙️ ɴᴏᴅᴇ: ${process.version}
-│  📂 ᴡᴏʀᴋɪɴɢ ᴅɪʀ: ${process.cwd()}
-│  
-│  🧩 ᴍᴏᴅᴜʟᴇꜱ ʟᴏᴀᴅᴇᴅ: ${Object.keys(require.cache).length}
-│  👤 ᴜꜱᴇʀ: ${os.userInfo().username}
-│ 
-╰───────────────⭓
-> MADE IN BY BILAL MD`
+*╭───────────────⭓*
+*│ 👑 PLATFORM :❯ ${os.platform()}*
+*│ 👑 UPTIME :❯ ${formattedUptime}*
+*│ 👑 RAM :❯ ${usedMemory}*
+*│ 👑 MEMORY :❯ ${freeMem}*
+*│ 👑 CPU :❯ ${cpuInfo} .cache).length}*
+*│ 👑 USER :❯ ${os.userInfo().username}*
+*╰───────────────⭓*
+ *👑 BILAL-MD MINI BOT 👑*`
             
 
             const sender = msg.key.remoteJid;
@@ -47,7 +39,7 @@ module.exports = {
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363296818107681@newsletter',
-                        newsletterName: 'MINI BILAL MD',
+                        newsletterName: 'BILAL-MD MINI BOT',
                         serverMessageId: 143
                     }
                 }
