@@ -57,6 +57,8 @@ module.exports = {
 *╭━━〔 👑 GROUP 👑 〕━━┈⊷*
 *┃👑│ • HIDETAG*
 *┃👑│ • DELETE*
+*┃👑│ • MUTE*
+*┃👑│ • UNMUTE*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *╭━━〔 👑 USER 👑 〕━━┈⊷*
