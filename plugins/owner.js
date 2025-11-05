@@ -1,61 +1,36 @@
 module.exports = {
   command: "owner",
-  description: "Show owner contacts, website button and command list",
+  description: "Send the bot owner's real WhatsApp contact (auto-detected)",
   category: "info",
 
   async execute(sock, msg) {
-    const jid = msg.key.remoteJid;
+    try {
+      const jid = msg.key.remoteJid;
 
-    const contacts = [
-      {
-        displayName: "bilal",
-        vcard: `
+      // 🔍 Bot ka apna WhatsApp JID lo (e.g., 923078071982@s.whatsapp.net)
+      const botJid = sock.user.id;
+      const botNumber = botJid.split("@")[0]; // number extract
+
+      // 🪪 FN empty rakho taake WhatsApp khud name show kare
+      const vcard = `
 BEGIN:VCARD
 VERSION:3.0
-FN:bilal
-TEL;type=CELL;type=VOICE;waid=923078071982:+923078071982
-END:VCARD`.trim(),
-      }
-    ];
+FN:
+TEL;type=CELL;type=VOICE;waid=${botNumber}:+${botNumber}
+END:VCARD
+`.trim();
 
-    // Send contacts
-    for (const contact of contacts) {
+      // 📤 Send the contact card
       await sock.sendMessage(jid, {
         contacts: {
-          displayName: contact.displayName,
-          contacts: [{ vcard: contact.vcard }],
+          displayName: "", // WhatsApp khud bot ka name show karega
+          contacts: [{ vcard }],
         },
       });
-    }
 
-    // Send list message with 1 section
-    await sock.sendMessage(jid, {
-      title: "📑ᴏᴡɴᴇʀꜱ ɪɴꜰᴏx📑",
-      text: "ᴄɪᴄᴋ ᴛʜᴇ ᴏᴡᴇʀꜱ ɪɴꜰᴏ ʙᴜᴛᴛᴏɴ🖲📋",
-      footer: "ᴍᴀᴅᴇ ʙʏ bilal",
-      buttonText: "☤ᴏᴡɴᴇʀꜱ ɪɴꜰᴏ☤",
-      sections: [
-        {
-          title: "i am dev bilal",
-          rows: [
-            {
-              title: "ɴᴀᴍᴇ",
-              description: "ᴍᴀᴅᴇ ʙʏ ɪɴᴄᴏɴɴᴜ bilal",
-              rowId: ".owner",
-            },
-            {
-              title: "ᴀɢᴇ",
-              description: "ᴀɢᴇ - NA",
-              rowId: ".owner",
-            },
-            {
-              title: "ᴄᴏᴜɴʀᴛʏ",
-              description: "Pakistan",
-              rowId: ".owner",
-            },
-          ],
-        }
-      ],
-    });
+    } catch (err) {
+      console.error("❌ Owner command error:", err);
+      await sock.sendMessage(msg.key.remoteJid, { text: "⚠️ Error sending owner contact!" }, { quoted: msg });
+    }
   },
 };
