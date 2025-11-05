@@ -4,23 +4,36 @@ const fs = require('fs');
 module.exports = {
   command: "lyrics",
   alias: ["lyric", "lirik"],
-  react: "😇",
+  react: "🎵",
   desc: "Get song lyrics (Mini-MD Style)",
   category: "music",
 
-  execute: async (sock, msg, { text, reply }) => {
+  async execute(sock, msg, args) {
     try {
-      if (!text)
-        return reply(
-          "*APKO KISI SONG KI LYRICS CHAHIYE 🤔*\n*TO ESE LIKHO ☺️*\n\n*LYRICS ❮SONG NAME❯*\n\n*JAB AP ESE LIKHO GE 🙂 TO US SONG KI LYRICS MIL JAYE GE 🥰❤️*"
+      const text = args.join(" ");
+
+      // agar user ne kuch nahi likha
+      if (!text) {
+        return sock.sendMessage(
+          msg.key.remoteJid,
+          {
+            text: `*APKO KISI SONG KI LYRICS CHAHIYE 🤔*\n*TO ESE LIKHO ☺️*\n\n*LYRICS ❮SONG NAME❯*\n\n*JAB AP ESE LIKHO GE 🙂 TO US SONG KI LYRICS MIL JAYE GE 🥰❤️*`,
+          },
+          { quoted: msg }
         );
+      }
 
       const api = `https://api.zenzxz.my.id/api/tools/lirik?title=${encodeURIComponent(text)}`;
       const res = await fetch(api);
       const json = await res.json();
 
-      if (!json.success || !json.data?.result?.length)
-        return reply("*IS SONG KI LYRICS NAHI MILI 🥺 KISI AUR SONG KA NAME LIKHO 😇*");
+      if (!json.success || !json.data?.result?.length) {
+        return sock.sendMessage(
+          msg.key.remoteJid,
+          { text: "*IS SONG KI LYRICS NAHI MILI 🥺 KISI AUR SONG KA NAME LIKHO 😇*" },
+          { quoted: msg }
+        );
+      }
 
       const song = json.data.result[0];
       const title = song.trackName || song.name || text;
@@ -28,7 +41,6 @@ module.exports = {
       const album = song.albumName || "Unknown Album";
       const duration = song.duration ? `${song.duration}s` : "N/A";
       const lyrics = song.plainLyrics?.trim() || "No lyrics found 😢";
-
       const thumb = "https://i.ibb.co/4ZX9kTWy/BILAL-MD.jpg";
 
       const shortLyrics =
@@ -49,26 +61,28 @@ ${shortLyrics}
 `;
 
       const sentMsg = await sock.sendMessage(
-        msg.chat,
-        { image: { url: thumb }, caption: caption },
+        msg.key.remoteJid,
+        { image: { url: thumb }, caption },
         { quoted: msg }
       );
 
-      // reply "1" to get full lyrics file
-      const listener = async (msgUpdate) => {
+      // "reply 1" to get full lyrics
+      const listener = async (update) => {
         try {
-          const up = msgUpdate.messages?.[0];
-          const body = up?.message?.conversation?.trim();
-          const context = up?.messageContextInfo;
+          const up = update.messages?.[0];
+          const body =
+            up?.message?.conversation ||
+            up?.message?.extendedTextMessage?.text ||
+            "";
 
-          if (body === "1" && context?.stanzaId === sentMsg.key.id) {
+          if (body.trim() === "1" && up.message?.extendedTextMessage?.contextInfo?.stanzaId === sentMsg.key.id) {
             const fileName = `${title.replace(/[^a-zA-Z0-9]/g, "_")}.txt`;
             fs.writeFileSync(fileName, `${title}\nby ${artist}\n\n${lyrics}`);
 
             await sock.sendMessage(
-              msg.chat,
+              msg.key.remoteJid,
               {
-                document: { url: fileName },
+                document: fs.readFileSync(fileName),
                 mimetype: "text/plain",
                 fileName: `${title}.txt`,
                 caption: `🎶 *${title}* Lyrics file by Mini-MD`,
@@ -86,9 +100,15 @@ ${shortLyrics}
 
       sock.ev.on("messages.upsert", listener);
       setTimeout(() => sock.ev.off("messages.upsert", listener), 180000);
-    } catch (e) {
-      console.error("Lyrics Error:", e);
-      reply("❌ *LYRICS ERROR — DUBARA KOSHISH KARO 🥺*");
+    } catch (err) {
+      console.error("Lyrics Error:", err);
+      await sock.sendMessage(
+        msg.key.remoteJid,
+        {
+          text: `*❌ ERROR*\n\n*MERE lyrics COMMAN ME KOI PROBLEM HAI 😥*\n\n*Error:* \`\`\`${err.message}\`\`\`\n\n> **👑 BILAL-MD MINI BOT 👑**`,
+        },
+        { quoted: msg }
+      );
     }
   },
 };
