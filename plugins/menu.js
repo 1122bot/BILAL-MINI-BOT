@@ -41,6 +41,7 @@ module.exports = {
 *┃👑│ • UPTIME*
 *┃👑│ • SYSTEM*
 *┃👑│ • HELP*
+*┃👑│ • OWNER*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *╭━━〔 👑 XTRA 👑 〕━━┈⊷*
