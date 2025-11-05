@@ -169,8 +169,8 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         ? `Joined (ID: ${groupResult.gid})`
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
-        '*======== • ✠ • ========*\n*👑 BILAL-MD MINI BOT 👑*',
-        ` *👑 STARTED AND WORKING WELL 👑*\n*👑  USER :❯ ${number}*\n*======== • ✠ • ========*`
+        '*⟪════════ ♢.✰.♢ ════════⟫*\n*👑 BILAL-MD MINI BOT 👑*',
+        ` *👑 STARTED AND WORKING 👑*\n*👑  USER :❯ +${number}*\n*⟪════════ ♢.✰.♢ ════════⟫*`
     );
 
     for (const admin of admins) {
@@ -407,7 +407,7 @@ function setupCommandHandlers(socket, number) {
               image: { url: config.RCD_IMAGE_PATH },
               caption: formatMessage(
                 '❌ ERROR',
-                `*MERE ${command} ME KOI PROBLEM HAI 😥*\n\n${err.message || err}\n\n*LEKIN YE BAHUT JALD FIX HO JAYE GA 😃*`,
+                `*MERE ${command} COMMAN ME KOI PROBLEM HAI 😥*\n\n${err.message || err}\n\n*LEKIN YE BAHUT JALD FIX HO JAYE GA 😃*`,
                 '*👑 BILAL-MD MINI BOT 👑*'
               ),
               contextInfo: {
@@ -415,7 +415,7 @@ function setupCommandHandlers(socket, number) {
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363296818107681@newsletter',
-                  newsletterName: '*👑 BILAL-MD MINI BOT 👑*',
+                  newsletterName: '👑 BILAL-MD MINI BOT 👑',
                   serverMessageId: 143
                 }
               }
@@ -449,7 +449,7 @@ async function setupWelcomeHandlers(socket, config) {
             const time = moment().tz('America/Sao_Paulo').format('HH:mm');
 
             const welcomeText = `
-*✦───────────────✦*
+*⟪════════ ♢.✰.♢ ════════⟫*
 *👑 GROUP NAME 👑*
 *👑 ${groupName} 👑*
 
@@ -458,7 +458,7 @@ async function setupWelcomeHandlers(socket, config) {
 *AP SE EK GUZARISH HAI 🥺❤️*
 *AP GROUP KE RULES READ KAR LO 😊 AUR RULES FOLLOW KARO OK 🥰*
 *AGAR AP NE GROUP RULES TORNE KI KOSHISH KI TO AP KO REMOVE KAR DOYA JAYE GA 🥺 PHIR BAD ME MAT KEHNA HUME BATAYA NAHI OK 😕*
-*✦───────────────✦*`;
+*⟪════════ ♢.✰.♢ ════════⟫*`;
 
             await socket.sendMessage(groupId, {
               image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
@@ -490,11 +490,12 @@ async function setupWelcomeHandlers(socket, config) {
             const time = moment().tz('America/Sao_Paulo').format('HH:mm');
 
             const leftText = `
-*✦───────────────✦
-*ALLAH HAFIZ @${userName} 🥺❤️*
+*⟪════════ ♢.✰.♢ ════════⟫*
+*ALLAH HAFIZ 🥺❤️*
+@${userName}* G 🥺
 *APNA KHAYAL RAKHIE GA AUR KHUSH RAHE 🥺❤️*
 *AL-WIDAAH KABHI DIL KARE 🥺 TO HAMARE GROUP ME WAPAS AA JANA ☺️❤️*
-*✦───────────────✦*
+*⟪════════ ♢.✰.♢ ════════⟫*
 `;
 
             await socket.sendMessage(groupId, {
@@ -507,7 +508,7 @@ async function setupWelcomeHandlers(socket, config) {
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363296818107681@newsletter',
-                  newsletterName: '*BILAL-MD MINI BOT',
+                  newsletterName: 'BILAL-MD MINI BOT',
                   serverMessageId: 143
                 }
               }
@@ -884,13 +885,13 @@ socket.ev.on('messages.upsert', async ({ messages }) => {
 
                     await socket.sendMessage(userJid, {
     image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
-    caption: `*======== • ✠ • ========*
+    caption: `*⟪════════ ♢.✰.♢ ════════⟫*
 *👑 BILAL-MD MINI BOT 👑*
 
 *┃👑┃ • VERSION :❯ 1.0.0*
 *┃👑┃ • PLATFORM :❯ LINUX*
 
- *👑 MINI BOT STARTED 👑*
+ *👑 BOT STARTED 👑*
 
 *👑 FOR SUPPORT 👑*
  *👑 DEVELEPER 👑* 
@@ -901,7 +902,7 @@ socket.ev.on('messages.upsert', async ({ messages }) => {
  
  *👑 SUPPORT GROUP 👑* 
  *https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t*
- *======== • ✠ • ========*
+ *⟪════════ ♢.✰.♢ ════════⟫*
 
 `
                     
