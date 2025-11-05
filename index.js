@@ -453,7 +453,7 @@ async function setupWelcomeHandlers(socket, config) {
 *👑 GROUP NAME 👑*
 *👑 ${groupName} 👑*
 
-*MOST WELCOME MY DEAR *@${userName} APKA DIL SE SHUKRYA 🥰 AP NE HAMARA GROUP JOIN KIA 😊*
+*MOST WELCOME MY DEAR 😍*\n*👑 @${userName} 👑*\n \n*APKA DIL SE SHUKRYA 🥰 AP NE HAMARA GROUP JOIN KIA 😊*
 
 *AP SE EK GUZARISH HAI 🥺❤️*
 *AP GROUP KE RULES READ KAR LO 😊 AUR RULES FOLLOW KARO OK 🥰*
