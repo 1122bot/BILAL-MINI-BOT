@@ -9,6 +9,6 @@ module.exports = {
   execute: async (sock, msg) => {
     const { remoteJid } = msg.key;
     await sock.groupSettingUpdate(remoteJid, "announcement");
-    await sock.sendMessage(remoteJid, { text: "🔒 Group has been muted. Only admins can send messages." }, { quoted: msg });
+    await sock.sendMessage(remoteJid, { text: "*YEH GROUP AB BAND HO CHUKA HAI 🥺* \n *AB AP SAB IS GROUP ME CHAT NAHI KAR SAKTE HAI 😇* \n *YEH GROUP BAHUT JALD OPEN HO JAYE GA 🥰*" }, { quoted: msg });
   }
 };
