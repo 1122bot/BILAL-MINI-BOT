@@ -170,7 +170,7 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
         '*======== • ✠ • ========*\n*👑 BILAL-MD MINI BOT 👑*',
-        ` *👑 STARTED AND WORKING WELL 👑*\n*👑  USER :❯ ${number}*\n*======== • ✠ • ========*'
+        ` *👑 STARTED AND WORKING WELL 👑*\n*👑  USER :❯ ${number}*\n*======== • ✠ • ========*`
     );
 
     for (const admin of admins) {
