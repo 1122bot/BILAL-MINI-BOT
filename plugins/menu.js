@@ -56,6 +56,7 @@ module.exports = {
 *╭━━〔 👑 USER 👑 〕━━┈⊷*
 *┃👑│ • BLOCK*
 *┃👑│ • UNBLOCK*
+*┃👑│ • AUTOBIO*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *╭━━〔 👑 AI 👑 〕━━┈⊷*
