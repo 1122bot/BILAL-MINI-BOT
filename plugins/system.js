@@ -22,7 +22,7 @@ module.exports = {
 *│ 👑 UPTIME :❯ ${formattedUptime}*
 *│ 👑 RAM :❯ ${usedMemory}*
 *│ 👑 MEMORY :❯ ${freeMem}*
-*│ 👑 CPU :❯ ${cpuInfo} .cache).length}*
+*│ 👑 CPU :❯ ${cpuInfo}*
 *│ 👑 USER :❯ ${os.userInfo().username}*
 *╰───────────────⭓*
  *👑 BILAL-MD MINI BOT 👑*`
