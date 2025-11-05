@@ -16,13 +16,12 @@ module.exports = {
             const freeMem = (os.freemem() / 1024 / 1024).toFixed(2);
             const cpuInfo = os.cpus()[0].model;
 
-            const caption = `
+            const caption = `*👑 MINI BOT SYSTEM 👑*
 *╭───────────────⭓*
 *│ 👑 PLATFORM :❯ ${os.platform()}*
 *│ 👑 UPTIME :❯ ${formattedUptime}*
 *│ 👑 RAM :❯ ${usedMemory}*
 *│ 👑 MEMORY :❯ ${freeMem}*
-*│ 👑 CPU :❯ ${cpuInfo}*
 *╰───────────────⭓*
  *👑 BILAL-MD MINI BOT 👑*`
             
