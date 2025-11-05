@@ -23,7 +23,6 @@ module.exports = {
 *│ 👑 RAM :❯ ${usedMemory}*
 *│ 👑 MEMORY :❯ ${freeMem}*
 *│ 👑 CPU :❯ ${cpuInfo}*
-*│ 👑 USER :❯ ${os.userInfo().username}*
 *╰───────────────⭓*
  *👑 BILAL-MD MINI BOT 👑*`
             
