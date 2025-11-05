@@ -26,13 +26,18 @@ module.exports = {
 *MERE BOT KA MENU 🌹*
 *YEH HAI G 😊*
 
-*╭━━〔 👑 MAIN 👑 〕━━┈⊷*
+*╭━━〔 👑 DOWNLOAD 👑 〕━━┈⊷*
 *┃👑│ • SONG*
 *┃👑│ • VIDEO*
 *┃👑│ • TIKTOK*
 *┃👑│ • FB*
 *┃👑│ • APK*
 *┃👑│ • IMG*
+*╰━━━━━━━━━━━━━━━┈⊷*
+
+*╭━━〔 👑 SEARCH 👑 〕━━┈⊷*
+*┃👑│ • YTS*
+*┃👑│ • LYRICS*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *╭━━〔 👑 MAIN 👑 〕━━┈⊷*
