@@ -40,6 +40,7 @@ module.exports = {
 *┃👑│ • PING*
 *┃👑│ • UPTIME*
 *┃👑│ • SYSTEM*
+*┃👑│ • HELP*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *╭━━〔 👑 XTRA 👑 〕━━┈⊷*
