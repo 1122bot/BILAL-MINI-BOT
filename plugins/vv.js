@@ -3,7 +3,7 @@ const { downloadContentFromMessage } = require("@whiskeysockets/baileys");
 
 module.exports = {
   command: "vv",
-  alias: ["wah", "ohh", "oho", "🙂", "nice", "ok"],
+  alias: ["antivv", "avv", "viewonce", "open", "openphoto", "openvideo", "vvphoto", "vvphoto"],
   description: "Owner Only - retrieve quoted media (photo, video, audio)",
   category: "owner",
   react: "😃",
