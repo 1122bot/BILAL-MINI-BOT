@@ -61,6 +61,17 @@ module.exports = {
 *┃👑│ • AI*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
+*👑 BILAL-MD MINI BOT 👑*
+
+*👑 FOR SUPPORT 👑*
+ *👑 DEVELEPER 👑* 
+ *https://akaserein.github.io/Bilal/*
+ 
+ *👑 SUPPORT CHANNEL 👑* 
+*https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G*
+ 
+ *👑 SUPPORT GROUP 👑* 
+ *https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t*
 
 `;
 
