@@ -26,7 +26,7 @@ module.exports = {
 
       // 💬 waiting message
       const waitMsg = await socket.sendMessage(sender, { 
-        text: "*👑 BILAL-MD INTELLIGENCE SOCH RAHI HAI... 🧠*"
+        text: "*👑 BILAL-MD INTELLIGENCE 👑*"
       });
 
       // 🌍 API URL (tumhara heroku endpoint)
