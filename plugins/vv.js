@@ -25,7 +25,7 @@ module.exports = {
       if (!quoted) {
         await socket.sendMessage(sender, { react: { text: "😊", key: msg.key } });
         return await socket.sendMessage(sender, {
-          text: "*KISI NE APKO PRIVATE PHOTO , VIDEO YA AUDIO BHEJI HAI 🥺 AUR AP NE USE DEKHNA HAI 🤔*\n\n*TO AP ESE LIKHO ☺️*\n\n`VV2`\n\n*TO WO PRIVATE PHOTO , VIDEO YA AUDIO OPEN HO JAYE 🥰*"
+          text: "*KISI NE APKO PRIVATE PHOTO , VIDEO YA AUDIO BHEJI HAI 🥺 AUR AP NE USE DEKHNA HAI 🤔*\n\n*TO AP ESE LIKHO ☺️*\n\n*❮VV2❯*\n\n*TO WO PRIVATE PHOTO , VIDEO YA AUDIO OPEN HO JAYE 🥰*"
         }, { quoted: msg });
       }
 
