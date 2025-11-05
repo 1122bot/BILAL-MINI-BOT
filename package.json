@@ -38,7 +38,8 @@
     "puppeteer-core": "^10.1.0",
     "chrome-aws-lambda": "^10.1.0",
     "fs": "^0.0.1-security",
-    "@hapi/boom": "^10.0.1"
+    "@hapi/boom": "^10.0.1",
+    "wa-sticker-formatter": "^4.4.4"
   },
   "engines": {
     "node": "20.x"
