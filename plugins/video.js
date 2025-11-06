@@ -33,15 +33,19 @@ module.exports = {
 
       const result = apiRes.result.media;
 
-      const caption = `
-*🎬 VIDEO NAME:* ${data.title}
-*🌐 LINK:* ${data.url}
-*👀 VIEWS:* ${data.views}
-*⏱️ DURATION:* ${data.timestamp}
+      const caption = `*⟪════════ ♢.✰.♢ ════════⟫*
+*👑 VIDEO NAME 👑*
+*${data.title}*
 
-Reply with:
-1️⃣ Normal video
-2️⃣ Video file
+*👑 LINK :❯ ${data.url}*
+*👑 VIEWS :❯ ${data.views}*
+*👑 TIME :❯ ${data.timestamp}*
+
+*PEHLE MERE IS MSG KO MENTION KARO LAZMII 😫 AGAR AP NE SIMPLE VIDEO MANGWANI HAI TO NUMBER ❮1❯ LIKHO ☺️ AGAR VIDEO FILE ME MANGWANI HAI TO NUMBER ❮2❯ LIKHO 😇*
+
+*❮1❯ SIMPLE VIDEO*
+*❮2❯ FILE VIDEO*
+*⟪════════ ♢.✰.♢ ════════⟫*
 `;
 
       const sentMsg = await socket.sendMessage(sender, { image: { url: result.thumbnail }, caption }, { quoted: msg });
