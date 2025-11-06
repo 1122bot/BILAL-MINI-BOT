@@ -1,21 +1,67 @@
-export const name = "delete";
+const getGroupAdmins = (participants) => {
+	var admins = []
+	for (let i of participants) {
+		i.admin !== null  ? admins.push(i.id) : ''
+	}
+	return admins
+}
 
-export async function execute(sock, msg, args) {
-  try {
+
+module.exports = {
+  command: "delete",
+  desc: "Delete the replied message for everyone",
+  category: "group",
+  use: ".delete (reply to a message)",
+  filename: __filename,
+  fromMe: false,
+
+  async execute(socket, msg, args) {
+
+
+
+const stanzaId = msg.message.extendedTextMessage.contextInfo.stanzaId;
+    const participant = msg.message.extendedTextMessage.contextInfo.participant;
+
+const getGroupAdmins = (participants) => {
+	var admins = []
+	for (let i of participants) {
+		i.admin !== null  ? admins.push(i.id) : ''
+	}
+	return admins
+}
+
+
+	  
+    const from = msg.key.remoteJid;
+const isGroup = from.endsWith('@g.us')
+const groupAdmins = isGroup ? await getGroupAdmins(participants) : ''
+            const isAdmins = isGroup ? groupAdmins.includes(from) : false
+
+
+if (!isAdmins) {
+await socket.sendMessage(from, { text: "*YEH COMMAND SIRF ADMINS USE KAR SAKTE HAI ☺️❤️*" }, { quoted: msg });
+               }
+    
+
     if (!msg.message?.extendedTextMessage?.contextInfo?.stanzaId) {
-      return await sock.sendMessage(msg.key.remoteJid, { text: "⚠️ Réponds au message que tu veux supprimer." }, { quoted: msg });
+      return await socket.sendMessage(from, { text: "*AP NE KON SA MSG DELETE KARNA HAI 😊 PEHLE USE MENTION KARO 😇 AUR PHIR LIKHO COMMAND ❮DELETE❯ TO WO MSG DELETE HO JAYE GA 🥳*" }, { quoted: msg });
     }
 
-    await sock.sendMessage(msg.key.remoteJid, {
-      delete: {
-        remoteJid: msg.key.remoteJid,
-        fromMe: false,
-        id: msg.message.extendedTextMessage.contextInfo.stanzaId,
-        participant: msg.message.extendedTextMessage.contextInfo.participant
-      }
-    });
+    
 
-  } catch (err) {
-    console.error("❌ Erreur delete :", err);
+	  
+    try {
+      await socket.sendMessage(from, {
+        delete: {
+          remoteJid: from,
+          fromMe: false,
+          id: stanzaId,
+          participant: participant,
+        },
+      });
+    } catch (err) {
+      console.error("Delete Error:", err);
+      await socket.sendMessage(from, { text: "❌ Failed to delete the message." }, { quoted: msg });
+    }
   }
-}
+};
