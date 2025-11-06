@@ -1,3 +1,6 @@
+const isAdmin = require('../lib/isAdmin');
+const store = require('../lib/lightweight_store');
+
 async function deleteCommand(sock, chatId, message, senderId) {
     try {
         const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
