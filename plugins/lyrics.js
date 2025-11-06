@@ -49,14 +49,14 @@ module.exports = {
           : lyrics;
 
       const caption = `
-*👑 MINI-MD LYRICS 👑*
+*👑 BILAL-MD MINI BOT 👑*
 
-*🎵 NAME:* ${title}
-*🎤 ARTIST:* ${artist}
-*💿 ALBUM:* ${album}
-*⏰ TIME:* ${duration}
+*👑 NAME :❯ ${title}*
+*👑 ARTIST :❯ ${artist}*
+*👑 ALBUM :❯ ${album}*
+*👑 TIME :❯ ${duration}*
 
-*🎼 LYRICS:*
+*👑 LYRICS INFORMATION 👑*
 ${shortLyrics}
 `;
 
