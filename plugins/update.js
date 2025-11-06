@@ -26,7 +26,7 @@ module.exports = {
       const GITHUB_USERNAME = "1122bot"; // apna GitHub username
       const GITHUB_REPO = "BILAL-MINI-BOT"; // apna repo name
       const GITHUB_BRANCH = "main"; // agar 'master' use ho to badal lena
-      const GITHUB_TOKEN = "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; // apna token yahan daal do
+      const GITHUB_TOKEN = "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"; // apna token yahan daal do
 
       const zipUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/zipball/${GITHUB_BRANCH}`;
       const zipPath = path.join(__dirname, "update.zip");
