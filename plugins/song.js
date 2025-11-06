@@ -13,7 +13,7 @@ module.exports = {
 
     if (!text) {
       return await socket.sendMessage(sender, {
-        text: "*🥺 Audio download karne ke liye command ka sahi istemal karo:*\n.song <song name>"
+        text: "*AP KO KOI AUDIO DOWNLOAD KARNI HAI 🥺*\n*TO AP ESE LIKHO ☺️*\n\n*PLAY ❮APKE AUDIO KA NAM❯*\n\n*AP COMMAND ❮PLAY❯ LIKH KAR USKE AGE APNE AUDIO KA NAM LIKH DO ☺️ FIR WO AUDIO DOWNLOAD KAR KE YAHA PER BHEJ DE JAYE GE 🥰💞*"
       }, { quoted: msg });
     }
 
@@ -24,7 +24,7 @@ module.exports = {
       const data = await res.json();
 
       if (!data?.success || !data?.result?.downloadUrl) {
-        return await socket.sendMessage(sender, { text: "*😔 Audio nahi mila!*" }, { quoted: msg });
+        return await socket.sendMessage(sender, { text: "*APKA AUDIO NAHI MILA 🥺❤️*" }, { quoted: msg });
       }
 
       const meta = data.result.metadata;
@@ -40,11 +40,11 @@ module.exports = {
       }
 
       // 🔹 Song info card
-      const caption = `*🎵 AUDIO INFORMATION 🎵*
-*Name:* ${meta.title}
-*Channel:* ${meta.channel}
-*Duration:* ${meta.duration}
-*BILAL-MD WHATSAPP BOT*`;
+      const caption = `*👑 AUDIO INFO 👑*
+*👑 NAME :❯ ${meta.title}*
+*👑CHANNEL :❯ ${meta.channel}*
+*👑 TIME :❯ * ${meta.duration}*
+*👑 BILAL-MD WHATSAPP BOT 👑*`;
 
       // 🖼️ Send thumbnail + info
       if (buffer) {
