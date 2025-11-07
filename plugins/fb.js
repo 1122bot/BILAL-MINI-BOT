@@ -22,7 +22,7 @@ module.exports = {
 
       if (!url || !url.includes("facebook.com")) {
         return await sock.sendMessage(from, {
-          text: `❌ *Facebook video link do bhai!*\n\n📌 Example:\n.facebook https://www.facebook.com/reel/xyz`
+          text: `*AP KO KOI FACEBOOK KI VIDEO DOWNLOAD KARNI HAI 🥺 TO US VIDEO KA LINK COPY KAR LO FACEBOOK  SE 😊* \n*AUR PHIR ESE LIKHO 😇* \n\n *FB ❮FACEBOK VIDEO LINK❯* \n\n *TO APKI VIDEO DOWNLOAD KAR KE 😃 YAHA SEND KAR DI JAYE GE OK 🥰❤️*`
         }, { quoted: msg });
       }
 
@@ -30,7 +30,7 @@ module.exports = {
 
       if (!data.status || !data.medias) {
         return await sock.sendMessage(from, {
-          text: "❌ Video fetch nahi hua. Link check karo ya dobara try karo!"
+          text: "*APKI FACEBOOK VIDEO NAHI MIL RAHI 🥺❤️*"
         }, { quoted: msg });
       }
 
@@ -40,18 +40,24 @@ module.exports = {
       const audio = medias.find(v => v.type === "audio");
 
       const caption = `
-╭───────────────⭓
-│ 👤 ᴜꜱᴇʀ: ${pushname}
-│ 🎬 ᴛɪᴛʟᴇ: ${title || "N/A"}
-│ ⏱️ ᴅᴜʀᴀᴛɪᴏɴ: ${formatDuration(duration)}
-│ 🔗 ꜱᴏᴜʀᴄᴇ: facebook.com
-│
-│ ✨ *Reply with:*
-│ 1️⃣ HD Video
-│ 2️⃣ SD Video
-│ 3️⃣ Audio Only
-╰───────────────⭓
-> _Varshade API_`;
+*👑 FACEBOOK VIDEO INFORMATION 👑*
+
+ *👑 VIDEO NAME 👑*
+ *${title || "N/A"}*
+ 
+*👑 TIME :❯ ${formatDuration(duration)}*
+
+*👑 IMPORTANT TOPIC 👑*
+*PEHLE MERE IS MSG KO MENTION KARO LAZMIII PLZ 🥺 AUR PHIR AGAR NUMBER ❮1❯ LIKHO GE TO VIDEO NORMAL QUALITY ME AYE GE 🙂 AGAR NUMBER ❮2❯ LIKHO GE TO VIDEO ❮ HD ❯ QUALITY ME AYE GE 😍 AGAR NUMBER ❮2❯ LIKHO GE TO VIDEO KA SIRF ❮AUDIO❯ AYE GA BAS 😌 AGE APKI MERZI 🥰*
+
+*👑 ❮1❯ NORMAL QUALTIY 👑*
+*👑 ❮2❯ HD QUALITY 👑*
+*👑 ❮3❯ AUDIO ONLY 👑*
+
+*⟪════════ ♢.✰.♢ ════════⟫*
+*👑 BILAL-MD MINI BOT 👑*
+*⟪════════ ♢.✰.♢ ════════⟫*
+`;
 
       const sent = await sock.sendMessage(from, {
         image: { url: thumbnail },
@@ -70,23 +76,23 @@ module.exports = {
         const text = mek.message.conversation || mek.message.extendedTextMessage?.text;
         const choice = text.trim();
 
-        await sock.sendMessage(from, { react: { text: "✅", key: mek.key } });
+        await sock.sendMessage(from, { react: { text: "😍", key: mek.key } });
 
         switch (choice) {
           case "1":
-            if (!hd) return sock.sendMessage(from, { text: "❌ HD link available nahi hai." }, { quoted: mek });
-            await sock.sendMessage(from, { video: { url: hd.url }, caption: "🎞️ *Facebook HD Video*" }, { quoted: mek });
+            if (!hd) return sock.sendMessage(from, { text: "*HD QUALITY VIDEO NAHI MILI 🥺 AP NORMAL QUALITY DOWNLOAD KARO NUMBER ❮1❯ LIKHO 😇*" }, { quoted: mek });
+            await sock.sendMessage(from, { video: { url: hd.url }, caption: "*👑 HD QUALITY VIDEO 👑*" }, { quoted: mek });
             break;
           case "2":
-            if (!sd) return sock.sendMessage(from, { text: "❌ SD link available nahi hai." }, { quoted: mek });
-            await sock.sendMessage(from, { video: { url: sd.url }, caption: "📼 *Facebook SD Video*" }, { quoted: mek });
+            if (!sd) return sock.sendMessage(from, { text: "*NORMAL QUALITY VIDEO NAHI MILI 🥺 AP HD QUALITY DOWNLOAD KARO NUMBER ❮2❯ LIKHO 😇" }, { quoted: mek });
+            await sock.sendMessage(from, { video: { url: sd.url }, caption: "*👑 NORMAL QUALITY VIDEO 👑*" }, { quoted: mek });
             break;
           case "3":
-            if (!audio) return sock.sendMessage(from, { text: "❌ Audio available nahi hai." }, { quoted: mek });
+            if (!audio) return sock.sendMessage(from, { text: "AUDIO DOWNLOAD NAHI HO RAHA SORRY 🥺❤️*" }, { quoted: mek });
             await sock.sendMessage(from, { audio: { url: audio.url }, mimetype: "audio/mp4" }, { quoted: mek });
             break;
           default:
-            await sock.sendMessage(from, { text: "❌ Reply 1, 2, ya 3 likho!" }, { quoted: mek });
+            await sock.sendMessage(from, { text: "*US MSG ME IMPORTANT TOPIC LIKHA THA WO NAHI PARHA KIA 🤨*\n\n*PEHLE MERE USS MSG KO MENTION KARO LAZMIII  😤*\n\n*AUR PHIR AGAR NUMBER ❮1❯ LIKHO GE TO VIDEO NORMAL QUALITY ME AYE GE 🙂 AGAR NUMBER ❮2❯ LIKHO GE TO VIDEO ❮ HD ❯ QUALITY ME AYE GE 😍 AGAR NUMBER ❮2❯ LIKHO GE TO VIDEO KA SIRF ❮AUDIO❯ AYE GA BAS 😌 AGE APKI MERZI 🥰*" }, { quoted: mek });
         }
       };
 
