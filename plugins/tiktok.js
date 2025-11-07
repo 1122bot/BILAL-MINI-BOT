@@ -14,7 +14,7 @@ module.exports = {
 
       if (!url)
         return sock.sendMessage(sender, {
-          text: "*AP NE TIKTOK KI VIDEO DOWNLOAD KARNI HAI TO TIKTOK VIDEO KA LINK COPY KAR LO 😊 🤔*\n*AUR PHIR ESE LIKHO ☺️*\n\n*TIKTOK ❮TIKTOK VIDEO LINK❯*\n\n*JAB AP ESE LIKHO GE 😇TO APKO TIKTOK VIDEO DOWNLOAD KAR KE 😃 YAHA PER BHEJ DE JAYE GE 😍❤️*",
+          text: "*AP NE TIKTOK KI VIDEO DOWNLOAD KARNI HAI TO TIKTOK VIDEO KA LINK COPY KAR LO 😊*\n*AUR PHIR ESE LIKHO ☺️*\n\n*TIKTOK ❮TIKTOK VIDEO LINK❯*\n\n*JAB AP ESE LIKHO GE 😇 TO APKI TIKTOK VIDEO DOWNLOAD KAR KE 😃 YAHA PER BHEJ DE JAYE GE 😍❤️*",
         });
 
       await sock.sendMessage(sender, { react: { text: "😃", key: msg.key } });
@@ -29,7 +29,7 @@ module.exports = {
         });
 
       const video = data.results.hdplay || data.results.play;
-      const caption = `*⟪════════ ♢.✰.♢ ════════⟫*\n*👑 VIDEO NAME 👑*\n *${data.results.title || "No Title"}*\n*👑 CREATER NAME 👑*\n *${data.results.author?.nickname || "Unknown"}* \n*👑 BILAL-MD MINI BOT 👑*`;
+      const caption = `*👑 VIDEO NAME 👑*\n ${data.results.title || "No Title"}\n\n*👑 CREATER NAME 👑*\n *👑 ${data.results.author?.nickname || "Unknown"} 👑* \n\n*👑 BILAL-MD MINI BOT 👑*`;
 
       await sock.sendMessage(sender, { react: { text: "☺️", key: msg.key } });
 
