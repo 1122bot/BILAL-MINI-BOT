@@ -1,35 +1,54 @@
-// 🌟 Code by bilal
 const axios = require("axios");
 
 module.exports = {
-  name: "tiktok",
+  command: "tiktok",
   alias: ["tt", "tiktokdl"],
-  desc: "Download TikTok video",
+  description: "Download TikTok video in HD (no watermark)",
   category: "downloader",
   react: "🎬",
 
-  async execute(client, m, args, text, { from, reply }) {
+  execute: async (sock, msg, args) => {
     try {
-      if (!args[0]) return reply("🎵 *Please provide a TikTok video link!*");
-
+      const sender = msg.key.remoteJid;
       const url = args[0];
+
+      if (!url)
+        return sock.sendMessage(sender, {
+          text: "🎯 *Please provide a TikTok video link!*\nExample: .tiktok https://www.tiktok.com/xxxxx",
+        });
+
+      await sock.sendMessage(sender, { react: { text: "⏳", key: msg.key } });
+
+      // API Request
       const api = `https://www.varshade.biz.id/api/downloader/tiktok?url=${url}`;
-      const res = await axios.get(api);
+      const { data } = await axios.get(api);
 
-      if (!res.data || !res.data.result || !res.data.result.video) {
-        return reply("❌ *Video not found or API issue!*");
-      }
+      if (!data || !data.results || !data.results.play)
+        return sock.sendMessage(sender, {
+          text: "❌ Failed to fetch video. Please check the link!",
+        });
 
-      const videoUrl = res.data.result.video;
+      const video = data.results.hdplay || data.results.play;
+      const caption = `🎬 *${data.results.title || "No Title"}*\n👤 Author: ${data.results.author?.nickname || "Unknown"}\n✨ Powered by VarShade API`;
 
-      await client.sendMessage(
-        from,
-        { video: { url: videoUrl }, caption: "🎬 *Here’s your TikTok video!*" },
-        { quoted: m }
+      await sock.sendMessage(sender, { react: { text: "🎥", key: msg.key } });
+
+      // Send Video
+      await sock.sendMessage(
+        sender,
+        {
+          video: { url: video },
+          caption,
+        },
+        { quoted: msg }
       );
-    } catch (err) {
-      console.error(err);
-      reply("❌ *Error downloading video!*");
+
+      await sock.sendMessage(sender, { react: { text: "✅", key: msg.key } });
+    } catch (error) {
+      console.error("TikTok Error:", error);
+      await sock.sendMessage(msg.key.remoteJid, {
+        text: "❌ *Error fetching TikTok video!*",
+      });
     }
   },
 };
