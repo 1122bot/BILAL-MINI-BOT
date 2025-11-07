@@ -2,7 +2,7 @@ const gis = require("g-i-s");
 
 module.exports = {
   command: "img",
-  description: "Search and send 10 images directly",
+  description: "Search and send 10 unique random images",
   category: "media",
 
   execute: async (sock, msg, args) => {
@@ -10,34 +10,41 @@ module.exports = {
       const from = msg.key.remoteJid;
       const query = args.join(" ");
 
-      if (!query)
+      if (!query) {
         return await sock.sendMessage(from, {
-          text: `*AP NE KOI PHOTOS DOWNLOAD KARNI HAI 🥺* \n *TO AP ESE LIKHO ☺️* \\n\n *IMG ❮PHOTOS KA NAME❯* \n\n *TO APKI PHOTO DOWNLOAD KAR KE 😇 YAHA PER BHEJ DE JAYE GE 🥰❤️*`,
+          text: `*📸 PHOTO DOWNLOAD KARNE K LIYE:* \n\n👉 *IMG <PHOTO NAME>* likho, jaise:\n\n*IMG cat*\n\nAur mai 10 alag alag photos bhej dunga 😍`,
         }, { quoted: msg });
+      }
 
       gis(query, async (error, results) => {
-        if (error || !results || results.length === 0)
-          return await sock.sendMessage(from, {
-            text: "❌ No images found.",
-          }, { quoted: msg });
+        if (error || !results || results.length === 0) {
+          return await sock.sendMessage(from, { text: "❌ No images found." }, { quoted: msg });
+        }
 
-        const images = results.slice(0, 10).map(r => r.url);
+        // ✅ Remove duplicates
+        const uniqueUrls = [...new Set(results.map(r => r.url))];
 
-        for (let i = 0; i < images.length; i++) {
+        // ✅ Shuffle randomly
+        const shuffled = uniqueUrls.sort(() => Math.random() - 0.5);
+
+        // ✅ Take only first 10 unique random images
+        const selected = shuffled.slice(0, 10);
+
+        // ✅ Send images one by one
+        for (let i = 0; i < selected.length; i++) {
           try {
             await sock.sendMessage(from, {
-              image: { url: images[i] },
-              caption: `*👑 BILAL-MD MINI BOT 👑*`,
+              image: { url: selected[i] },
             }, { quoted: msg });
 
-            await new Promise(r => setTimeout(r, 800)); // thoda delay
+            await new Promise(r => setTimeout(r, 700)); // thoda delay for smooth send
           } catch (err) {
-            console.log("Image send error:", err.message);
+            console.log("❌ Image send error:", err.message);
           }
         }
       });
     } catch (err) {
-      console.error("Command error:", err);
+      console.error("❌ Command error:", err);
     }
   },
 };
