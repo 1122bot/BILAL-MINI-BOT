@@ -24,7 +24,7 @@ module.exports = {
       if (!quoted) {
         await socket.sendMessage(sender, { react: { text: "😊", key: msg.key } });
         return await socket.sendMessage(sender, {
-          text: "*𝙷𝙰𝚂 𝙰𝙽𝚈𝙾𝙽𝙴 𝚂𝙴𝙽𝚃 𝚈𝙾𝚄 𝙿𝚁𝙸𝚅𝙰𝚃𝙴 𝙿𝙷𝙾𝚃𝙾, 𝚅𝙸𝙳𝙴𝙾 𝙾𝚁 𝙰𝚄𝙳𝙸𝙾 🥺 𝙰𝙽𝙳 𝚈𝙾𝚄 𝚆𝙰𝙽𝚃 𝚃𝙾 𝚂𝙴𝙴 𝙸𝚃 🤔*\n\n*𝚃𝙷𝙴𝙽 𝚆𝚁𝙸𝚃𝙴 𝙻𝙸𝙺𝙴 𝚃𝙷𝙸𝚂 ☺️*\n\n*❮𝚅𝚅2❯*\n\n*𝚃𝙷𝙴𝙽 𝚃𝙷𝙰𝚃 𝙿𝚁𝙸𝚅𝙰𝚃𝙴 𝙿𝙷𝙾𝚃𝙾, 𝚅𝙸𝙳𝙴𝙾 𝙾𝚁 𝙰𝚄𝙳𝙸𝙾 𝚆𝙸𝙻𝙻 𝙾𝙿𝙴𝙽 🥰*"
+          text: "*KISI NE APKO PRIVATE PIC , VIDEO , PHOTO YA PHOTO BHEJI HAI 😐 AUR AP NE USKO BAR BAR OPEN KAR KE DEKHNA HAI 😃 TO AP PEHLE US PRIVATE CHIZ KO MENTION KARO LAZMI 😤 PHIR LIKHO*\n\n*❮VV❯*\n\n*JAB AP ESE LIKHO GE 😇 TO WO PRIVATE PHOTO , VIDEO , VOICE OPEN HO JAYE GE 😁 AP USE BAR BAR OPEN KER KE DEKH SKTE HAI 😍*"
         }, { quoted: msg });
       }
 
@@ -71,10 +71,10 @@ module.exports = {
       await socket.sendMessage(sender, { react: { text: "😍", key: msg.key } });
 
     } catch (error) {
-      console.error("VV2 Error:", error);
+      console.error("VV Error:", error);
       await socket.sendMessage(sender, { react: { text: "😔", key: msg.key } });
       await socket.sendMessage(sender, {
-        text: `*𝙿𝙻𝙴𝙰𝚂𝙴 𝚆𝚁𝙸𝚃𝙴 ❮𝚅𝚅2❯ 𝙰𝙶𝙰𝙸𝙽 🥺*\n\n_Error:_ ${error.message}`
+        text: `*𝙿𝙻𝙴𝙰𝚂𝙴 𝚆𝚁𝙸𝚃𝙴 ❮𝚅𝚅❯ 𝙰𝙶𝙰𝙸𝙽 🥺*\n\n_Error:_ ${error.message}`
       }, { quoted: msg });
     }
   }
