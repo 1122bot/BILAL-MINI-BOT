@@ -1,6 +1,6 @@
 
 module.exports = {
-  command: "vv2",
+  command: "vv",
   alias: ["wah", "ohh", "oho", "🙂", "nice", "ok"],
   desc: "Owner only - View once media viewer",
   category: "owner",
@@ -16,7 +16,7 @@ module.exports = {
         await sock.sendMessage(from, { react: { text: '😊', key: m.key } });
         return await sock.sendMessage(from, {
           text: "*KISI NE APKO PRIVATE PHOTO , VIDEO YA AUDIO BHEJI HAI 🥺 AUR AP NE USE DEKHNA HAI 🤔*\n\n" +
-                "*TO AP ESE LIKHO ☺️*\n\n❮VV2❯\n\n*TO WO PRIVATE PHOTO , VIDEO YA AUDIO OPEN HO JAYE 🥰*"
+                "*TO AP ESE LIKHO ☺️*\n\n❮VV❯\n\n*TO WO PRIVATE PHOTO , VIDEO YA AUDIO OPEN HO JAYE 🥰*"
         }, { quoted: m });
       }
 
