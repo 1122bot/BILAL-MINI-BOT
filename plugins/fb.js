@@ -1,82 +1,100 @@
 const axios = require("axios");
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0; // 👈 testing ke liye add karo
-
-function formatDuration(ms) {
-  if (!ms) return "N/A";
-  const totalSeconds = Math.floor(ms / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-}
-
 module.exports = {
-  command: "fb",
-  desc: "📘 Download Facebook videos (HD / SD / Audio)",
+  command: "facebook",
+  alias: ["fb", "fbdl", "fbvideo"],
+  description: "📘 Download Facebook video (HD / SD)",
   category: "download",
-  react: "☺️",
+  react: "📥",
 
-  async execute(sock, msg, args) {
-    const from = msg.key.remoteJid;
-    const url = args[0];
-
+  execute: async (sock, msg, args) => {
     try {
+      const from = msg.key.remoteJid;
+      const url = args[0];
+
       if (!url || !url.includes("facebook.com")) {
-        return sock.sendMessage(from, { text: "*📘 Facebook video link do please!*" }, { quoted: msg });
+        return sock.sendMessage(from, {
+          text: `❌ Please provide a valid Facebook video link.\n\nExample:\n*.facebook https://www.facebook.com/reel/...*`
+        }, { quoted: msg });
       }
 
-      // ✅ working API endpoint
-      const { data } = await axios.get(
-        `https://www.varshade.biz.id/api/downloader/facebook?url=${encodeURIComponent(url)}`,
-        { timeout: 15000 }
-      );
+      await sock.sendMessage(from, { react: { text: "⏳", key: msg.key } });
+
+      const api = `https://www.varshade.biz.id/api/downloader/facebook?url=${encodeURIComponent(url)}`;
+      const { data } = await axios.get(api);
 
       if (!data.status || !data.medias) {
-        return sock.sendMessage(from, { text: "🥺 Video not found ya API down hai." }, { quoted: msg });
+        throw new Error("Invalid API response");
       }
 
-      const { title, thumbnail, duration, medias } = data;
-      const hd = medias.find(v => v.quality?.toLowerCase() === "hd");
-      const sd = medias.find(v => v.quality?.toLowerCase() === "sd");
+      // Extract video info
+      const title = data.title || "Facebook Video";
+      const author = data.author || "Unknown";
+      const duration = (data.duration / 1000).toFixed(0) + " sec";
+      const thumb = data.thumbnail || null;
 
-      const caption = `
-*🎥 FACEBOOK VIDEO INFO 🎥*
-🎞️ Title: ${title}
-🕒 Duration: ${formatDuration(duration)}
+      const hd = data.medias.find(v => v.quality === "HD");
+      const sd = data.medias.find(v => v.quality === "SD");
 
-👇 Choose:
-1️⃣ SD Video
-2️⃣ HD Video
+      let caption = `
+📘 *FACEBOOK VIDEO DOWNLOADER*
+───────────────────
+👤 *Author:* ${author}
+🎬 *Title:* ${title}
+⏱ *Duration:* ${duration}
+🌐 *Source:* Facebook
+───────────────────
+🎞 *Available Qualities:*
+${hd ? "✅ HD (720p)" : "❌ HD not found"}
+${sd ? "✅ SD (360p)" : "❌ SD not found"}
+───────────────────
+💡 *Reply 1* = Download HD
+💡 *Reply 2* = Download SD
 `;
 
-      const sent = await sock.sendMessage(from, { image: { url: thumbnail }, caption }, { quoted: msg });
+      const previewMsg = await sock.sendMessage(from, {
+        image: { url: thumb },
+        caption
+      }, { quoted: msg });
 
-      // Wait for user reply (mini bot style)
-      const listener = async (update) => {
-        const mek = update.messages[0];
-        if (!mek.message) return;
+      // Listener for reply
+      const msgId = previewMsg.key.id;
 
-        const isReply = mek.message?.extendedTextMessage?.contextInfo?.stanzaId === sent.key.id;
-        if (!isReply) return;
+      const listener = async (u) => {
+        try {
+          const m = u.messages[0];
+          if (!m.message) return;
+          const isReply = m.message.extendedTextMessage?.contextInfo?.stanzaId === msgId;
+          if (!isReply) return;
 
-        const text = mek.message.conversation || mek.message.extendedTextMessage?.text;
-        const choice = text.trim();
+          const text = (m.message.conversation || m.message.extendedTextMessage?.text || "").trim();
 
-        if (choice === "1" && sd) {
-          await sock.sendMessage(from, { video: { url: sd.url }, caption: "🎬 SD Video" }, { quoted: mek });
-        } else if (choice === "2" && hd) {
-          await sock.sendMessage(from, { video: { url: hd.url }, caption: "🎥 HD Video" }, { quoted: mek });
-        } else {
-          await sock.sendMessage(from, { text: "❌ Invalid option!" }, { quoted: mek });
+          if (text === "1" && hd) {
+            await sock.sendMessage(from, {
+              video: { url: hd.url },
+              caption: "✅ Facebook HD Video"
+            }, { quoted: m });
+          } else if (text === "2" && sd) {
+            await sock.sendMessage(from, {
+              video: { url: sd.url },
+              caption: "📼 Facebook SD Video"
+            }, { quoted: m });
+          } else {
+            await sock.sendMessage(from, { text: "❌ Invalid choice or quality not found." }, { quoted: m });
+          }
+        } catch (err) {
+          console.error("Reply handler error:", err);
         }
       };
 
       sock.ev.on("messages.upsert", listener);
       setTimeout(() => sock.ev.off("messages.upsert", listener), 2 * 60 * 1000);
 
-    } catch (err) {
-      console.error("Facebook error:", err.message);
-      await sock.sendMessage(from, { text: `⚠️ Error: ${err.message}` }, { quoted: msg });
+    } catch (error) {
+      console.error("FB Command Error:", error);
+      await sock.sendMessage(msg.key.remoteJid, {
+        text: `⚠️ Error: ${error.message || "Something went wrong!"}`
+      }, { quoted: msg });
     }
   }
 };
