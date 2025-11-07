@@ -39,8 +39,7 @@
     "puppeteer-core": "^10.1.0",
     "chrome-aws-lambda": "^10.1.0",
     "fs": "^0.0.1-security",
-    "@hapi/boom": "^10.0.1",
-    "ruhend-scraper": "^1.0.4"
+    "@hapi/boom": "^10.0.1"
   },
   "engines": {
     "node": "20.x"
