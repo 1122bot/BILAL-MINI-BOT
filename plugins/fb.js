@@ -10,97 +10,92 @@ function formatDuration(ms) {
 
 module.exports = {
   command: "facebook",
-  alias: ["fb", "fbreel"],
-  desc: "Download Facebook Reel/Video with HD/SD options",
-  react: "📥",
+  desc: "📘 Download Facebook videos (HD / SD / Audio)",
   category: "download",
+  react: "📥",
 
-  execute: async (sock, msg, args) => {
+  async execute(sock, msg, args) {
     try {
       const from = msg.key.remoteJid;
+      const pushname = msg.pushName || "User";
       const url = args[0];
-      const pushname = msg.pushName || "there";
 
       if (!url || !url.includes("facebook.com")) {
-        return sock.sendMessage(from, {
-          text: `❌ Please provide a valid Facebook video/reel URL!\nExample: *.facebook https://www.facebook.com/reel/xyz*`
+        return await sock.sendMessage(from, {
+          text: `❌ *Facebook video link do bhai!*\n\n📌 Example:\n.facebook https://www.facebook.com/reel/xyz`
         }, { quoted: msg });
       }
 
-      // Fetch Facebook video info
-      const apiRes = await axios.get(`https://api.siputzx.my.id/api/d/facebook?url=${encodeURIComponent(url)}`);
-      const data = apiRes.data.data;
+      const { data } = await axios.get(`https://www.varshade.biz.id/api/downloader/facebook?url=${encodeURIComponent(url)}`);
 
-      if (!data || !data.urls || !Array.isArray(data.urls) || data.urls.length === 0) {
-        return sock.sendMessage(from, { text: "❌ Video not available or private." }, { quoted: msg });
+      if (!data.status || !data.medias) {
+        return await sock.sendMessage(from, {
+          text: "❌ Video fetch nahi hua. Link check karo ya dobara try karo!"
+        }, { quoted: msg });
       }
 
-      const hdVideo = data.urls[0];
-      const sdVideo = data.urls[1] || null;
-      const title = data.title || "N/A";
-      const duration = formatDuration(data.duration);
-      const views = data.views ?? "N/A";
-      const reactions = data.reactions ?? "N/A";
-      const comments = data.comments ?? "N/A";
+      const { title, author, duration, thumbnail, medias } = data;
+      const hd = medias.find(v => v.quality?.toLowerCase() === "hd");
+      const sd = medias.find(v => v.quality?.toLowerCase() === "sd");
+      const audio = medias.find(v => v.type === "audio");
 
       const caption = `
 ╭───────────────⭓
-│ 👤 Requested by: ${pushname}
-│ 🎬 Title: ${title}
-│ ⏱ Duration: ${duration}
-│ 👁 Views: ${views}
-│ ❤️ Reactions: ${reactions}
-│ 💬 Comments: ${comments}
-│ 🔗 Source: ${url}
+│ 👤 ᴜꜱᴇʀ: ${pushname}
+│ 🎬 ᴛɪᴛʟᴇ: ${title || "N/A"}
+│ ⏱️ ᴅᴜʀᴀᴛɪᴏɴ: ${formatDuration(duration)}
+│ 🔗 ꜱᴏᴜʀᴄᴇ: facebook.com
 │
-│ 🔢 Reply with:
-│ ├ 1 → HD Video
-│ ├ 2 → SD Video
-│ ├ 3 → Audio only (Unavailable)
-╰───────────────⭓`;
+│ ✨ *Reply with:*
+│ 1️⃣ HD Video
+│ 2️⃣ SD Video
+│ 3️⃣ Audio Only
+╰───────────────⭓
+> _Varshade API_`;
 
-      const previewImg = "https://files.catbox.moe/deeo6l.jpg";
+      const sent = await sock.sendMessage(from, {
+        image: { url: thumbnail },
+        caption
+      }, { quoted: msg });
 
-      const sentMsg = await sock.sendMessage(from, { image: { url: previewImg }, caption }, { quoted: msg });
-      const msgId = sentMsg.key.id;
+      const msgId = sent.key.id;
 
       const listener = async (update) => {
-        try {
-          const mek = update.messages[0];
-          if (!mek.message) return;
-          if (mek.key.remoteJid !== from) return;
-          const isReply = mek.message.extendedTextMessage?.contextInfo?.stanzaId === msgId;
-          if (!isReply) return;
+        const mek = update.messages[0];
+        if (!mek.message) return;
 
-          const text = mek.message.conversation || mek.message.extendedTextMessage?.text;
-          await sock.sendMessage(from, { react: { text: "✅", key: mek.key } });
+        const isReply = mek.message?.extendedTextMessage?.contextInfo?.stanzaId === msgId;
+        if (!isReply) return;
 
-          switch (text.trim()) {
-            case "1":
-              if (!hdVideo) return sock.sendMessage(from, { text: "❌ HD video not available." }, { quoted: mek });
-              await sock.sendMessage(from, { video: { url: hdVideo }, caption: "✅ Facebook Video (HD)" }, { quoted: mek });
-              break;
-            case "2":
-              if (!sdVideo) return sock.sendMessage(from, { text: "❌ SD video not available." }, { quoted: mek });
-              await sock.sendMessage(from, { video: { url: sdVideo }, caption: "📼 Facebook Video (SD)" }, { quoted: mek });
-              break;
-            case "3":
-              await sock.sendMessage(from, { text: "❌ Audio only not available for Facebook videos." }, { quoted: mek });
-              break;
-            default:
-              await sock.sendMessage(from, { text: "❌ Invalid option. Reply 1, 2, or 3." }, { quoted: mek });
-          }
-        } catch (err) {
-          console.error("Facebook reply error:", err);
+        const text = mek.message.conversation || mek.message.extendedTextMessage?.text;
+        const choice = text.trim();
+
+        await sock.sendMessage(from, { react: { text: "✅", key: mek.key } });
+
+        switch (choice) {
+          case "1":
+            if (!hd) return sock.sendMessage(from, { text: "❌ HD link available nahi hai." }, { quoted: mek });
+            await sock.sendMessage(from, { video: { url: hd.url }, caption: "🎞️ *Facebook HD Video*" }, { quoted: mek });
+            break;
+          case "2":
+            if (!sd) return sock.sendMessage(from, { text: "❌ SD link available nahi hai." }, { quoted: mek });
+            await sock.sendMessage(from, { video: { url: sd.url }, caption: "📼 *Facebook SD Video*" }, { quoted: mek });
+            break;
+          case "3":
+            if (!audio) return sock.sendMessage(from, { text: "❌ Audio available nahi hai." }, { quoted: mek });
+            await sock.sendMessage(from, { audio: { url: audio.url }, mimetype: "audio/mp4" }, { quoted: mek });
+            break;
+          default:
+            await sock.sendMessage(from, { text: "❌ Reply 1, 2, ya 3 likho!" }, { quoted: mek });
         }
       };
 
       sock.ev.on("messages.upsert", listener);
       setTimeout(() => sock.ev.off("messages.upsert", listener), 2 * 60 * 1000);
 
-    } catch (err) {
-      console.error("Facebook command error:", err);
-      await sock.sendMessage(msg.key.remoteJid, { text: `❌ Error: ${err.message}` }, { quoted: msg });
+    } catch (e) {
+      console.error(e);
+      await sock.sendMessage(msg.key.remoteJid, { text: `⚠️ Error: ${e.message}` }, { quoted: msg });
     }
   }
 };
