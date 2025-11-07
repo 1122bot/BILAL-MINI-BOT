@@ -9,10 +9,10 @@ function formatDuration(ms) {
 }
 
 module.exports = {
-  command: "facebook",
+  command: "fb",
   desc: "📘 Download Facebook videos (HD / SD / Audio)",
   category: "download",
-  react: "📥",
+  react: "☺️",
 
   async execute(sock, msg, args) {
     try {
