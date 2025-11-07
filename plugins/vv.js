@@ -74,7 +74,7 @@ module.exports = {
       console.error("VV2 Error:", error);
       await socket.sendMessage(sender, { react: { text: "😔", key: msg.key } });
       await socket.sendMessage(sender, {
-        text: '*𝙿𝙻𝙴𝙰𝚂𝙴 𝚆𝚁𝙸𝚃𝙴 ❮𝚅𝚅2❯ 𝙰𝙶𝙰𝙸𝙽 🥺*\n\n_Error:_ ${error.message}'
+        text: `*𝙿𝙻𝙴𝙰𝚂𝙴 𝚆𝚁𝙸𝚃𝙴 ❮𝚅𝚅2❯ 𝙰𝙶𝙰𝙸𝙽 🥺*\n\n_Error:_ ${error.message}`
       }, { quoted: msg });
     }
   }
