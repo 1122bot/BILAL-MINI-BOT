@@ -12,7 +12,7 @@ module.exports = {
 
       if (!query)
         return await sock.sendMessage(from, {
-          text: `Example:\n.img cat`,
+          text: `*AP NE KOI PHOTOS DOWNLOAD KARNI HAI 🥺* \n *TO AP ESE LIKHO ☺️* \\n\n *IMG ❮PHOTOS KA NAME❯* \n\n *TO APKI PHOTO DOWNLOAD KAR KE 😇 YAHA PER BHEJ DE JAYE GE 🥰❤️*`,
         }, { quoted: msg });
 
       gis(query, async (error, results) => {
@@ -27,7 +27,7 @@ module.exports = {
           try {
             await sock.sendMessage(from, {
               image: { url: images[i] },
-              caption: `🖼️ ${query} (${i + 1}/10)`,
+              caption: `*👑 BILAL-MD MINI BOT 👑*`,
             }, { quoted: msg });
 
             await new Promise(r => setTimeout(r, 800)); // thoda delay
