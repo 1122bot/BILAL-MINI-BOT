@@ -3,9 +3,8 @@ const axios = require("axios");
 module.exports = {
   command: "facebook",
   alias: ["fb", "fbdl"],
-  description: "Download Facebook video in HD or SD quality",
+  description: "Download Facebook videos (HD/SD) with info",
   category: "downloader",
-  react: "📽️",
 
   execute: async (sock, msg, args) => {
     try {
@@ -15,62 +14,49 @@ module.exports = {
 
       if (!url || !url.includes("facebook.com")) {
         return await sock.sendMessage(from, {
-          text: `❌ *Please provide a valid Facebook video link!*\n\nExample: *.facebook https://www.facebook.com/reel/xyz*`,
+          text: `❌ *Please provide a valid Facebook video link!*\n\n📌 Example:\n.facebook https://www.facebook.com/reel/xyz`
         }, { quoted: msg });
       }
 
-      // Send initial reaction
       await sock.sendMessage(from, { react: { text: "⏳", key: msg.key } });
 
-      // API call
-      const apiUrl = `https://api.siputzx.my.id/api/d/facebook?url=${encodeURIComponent(url)}`;
-      const { data } = await axios.get(apiUrl);
+      const api = await axios.get(`https://www.varshade.biz.id/api/downloader/facebook?url=${encodeURIComponent(url)}`);
+      const data = api.data;
 
-      if (!data.status || !data.data || !data.data.urls) {
-        return await sock.sendMessage(from, {
-          text: "❌ *Video not found or unavailable!*",
-        }, { quoted: msg });
+      if (!data || !data.medias || data.medias.length === 0) {
+        return await sock.sendMessage(from, { text: "❌ Video not found or download failed." }, { quoted: msg });
       }
 
-      const result = data.data;
-      const hdVideo = result.urls[0];
-      const sdVideo = result.urls[1] || null;
-      const title = result.title || "Unknown Title";
+      const title = data.title || "Untitled Video";
+      const author = data.author || "Unknown";
+      const thumb = data.thumbnail || null;
 
-      // Prepare caption
-      const caption = `
-🎬 *Facebook Video Downloader*
-━━━━━━━━━━━━━━
-👤 *Requested by:* ${pushname}
-📘 *Title:* ${title}
-💫 *Quality:* ${hdVideo ? "HD Available" : "SD Only"}
-🔗 *Source:* ${url}
-━━━━━━━━━━━━━━
-> 👑 *BILAL-MD MINI BOT*
-`;
+      const hd = data.medias.find(v => v.quality === "HD");
+      const sd = data.medias.find(v => v.quality === "SD");
 
-      // Send thumbnail + info
-      const previewImg = result.thumbnail || "https://i.ibb.co/4M9H2PQ/facebook.jpg";
+      const caption = `🎬 *${title}*\n👤 *By:* ${author}\n🌐 *Source:* Facebook\n\n💠 *Available Qualities:*\n• HD Video ✅\n• SD Video ✅\n\n> 👑 BILAL-MD MINI BOT 👑`;
+
+      // Send preview + caption
       await sock.sendMessage(from, {
-        image: { url: previewImg },
-        caption,
+        image: { url: thumb },
+        caption
       }, { quoted: msg });
 
-      // Send the video
-      await sock.sendMessage(from, { react: { text: "📤", key: msg.key } });
+      // Send HD (preferred) or SD
+      const videoUrl = hd?.url || sd?.url;
+      if (!videoUrl) return sock.sendMessage(from, { text: "❌ No downloadable video found." }, { quoted: msg });
 
       await sock.sendMessage(from, {
-        video: { url: hdVideo || sdVideo },
-        caption: `✅ *Here is your video in ${hdVideo ? "HD" : "SD"} quality!* 🎥`,
+        video: { url: videoUrl },
+        caption: `✅ *Here is your Facebook video (HD)*\n> BILAL-MD MINI BOT`
       }, { quoted: msg });
 
       await sock.sendMessage(from, { react: { text: "✅", key: msg.key } });
-
-    } catch (error) {
-      console.error("FB Error:", error);
+    } catch (err) {
+      console.error("Facebook CMD Error:", err);
       await sock.sendMessage(msg.key.remoteJid, {
-        text: `❌ *Error fetching video:* ${error.message}`,
+        text: "❌ Error fetching Facebook video!"
       }, { quoted: msg });
     }
-  },
+  }
 };
