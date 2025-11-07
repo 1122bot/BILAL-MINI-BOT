@@ -5,7 +5,7 @@ module.exports = {
   alias: ["tt", "tiktokdl"],
   description: "Download TikTok video in HD (no watermark)",
   category: "downloader",
-  react: "🎬",
+  react: "🥺",
 
   execute: async (sock, msg, args) => {
     try {
@@ -14,10 +14,10 @@ module.exports = {
 
       if (!url)
         return sock.sendMessage(sender, {
-          text: "🎯 *Please provide a TikTok video link!*\nExample: .tiktok https://www.tiktok.com/xxxxx",
+          text: "*AP NE TIKTOK KI VIDEO DOWNLOAD KARNI HAI TO TIKTOK VIDEO KA LINK COPY KAR LO 😊 🤔*\n*AUR PHIR ESE LIKHO ☺️*\n\n*TIKTOK ❮TIKTOK VIDEO LINK❯*\n\n*JAB AP ESE LIKHO GE 😇TO APKO TIKTOK VIDEO DOWNLOAD KAR KE 😃 YAHA PER BHEJ DE JAYE GE 😍❤️*",
         });
 
-      await sock.sendMessage(sender, { react: { text: "⏳", key: msg.key } });
+      await sock.sendMessage(sender, { react: { text: "😃", key: msg.key } });
 
       // API Request
       const api = `https://www.varshade.biz.id/api/downloader/tiktok?url=${url}`;
@@ -25,13 +25,13 @@ module.exports = {
 
       if (!data || !data.results || !data.results.play)
         return sock.sendMessage(sender, {
-          text: "❌ Failed to fetch video. Please check the link!",
+          text: "*APKI TIKTOK VIDEO NAHI MILI 🥺❤️*",
         });
 
       const video = data.results.hdplay || data.results.play;
-      const caption = `🎬 *${data.results.title || "No Title"}*\n👤 Author: ${data.results.author?.nickname || "Unknown"}\n✨ Powered by VarShade API`;
+      const caption = `*⟪════════ ♢.✰.♢ ════════⟫*\n*👑 VIDEO NAME 👑*\n *${data.results.title || "No Title"}*\n*👑 CREATER NAME 👑*\n *${data.results.author?.nickname || "Unknown"}* \n*👑 BILAL-MD MINI BOT 👑*`;
 
-      await sock.sendMessage(sender, { react: { text: "🎥", key: msg.key } });
+      await sock.sendMessage(sender, { react: { text: "☺️", key: msg.key } });
 
       // Send Video
       await sock.sendMessage(
