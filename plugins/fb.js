@@ -20,14 +20,12 @@ module.exports = {
 
       await sock.sendMessage(from, { react: { text: "⏳", key: msg.key } });
 
-      const api = `https://www.varshade.biz.id/api/downloader/facebook?url=${encodeURIComponent(url)}`;
+      // ✅ NEW API HERE
+      const api = `https://api.akuari.my.id/downloader/fb?link=${encodeURIComponent(url)}`;
       const { data } = await axios.get(api);
 
-      if (!data.status || !data.medias) {
-        throw new Error("Invalid API response");
-      }
+      if (!data.status || !data.medias) throw new Error("Invalid API response");
 
-      // Extract video info
       const title = data.title || "Facebook Video";
       const author = data.author || "Unknown";
       const duration = (data.duration / 1000).toFixed(0) + " sec";
@@ -57,14 +55,15 @@ ${sd ? "✅ SD (360p)" : "❌ SD not found"}
         caption
       }, { quoted: msg });
 
-      // Listener for reply
       const msgId = previewMsg.key.id;
 
       const listener = async (u) => {
         try {
           const m = u.messages[0];
           if (!m.message) return;
-          const isReply = m.message.extendedTextMessage?.contextInfo?.stanzaId === msgId;
+
+          const isReply =
+            m.message.extendedTextMessage?.contextInfo?.stanzaId === msgId;
           if (!isReply) return;
 
           const text = (m.message.conversation || m.message.extendedTextMessage?.text || "").trim();
@@ -88,7 +87,7 @@ ${sd ? "✅ SD (360p)" : "❌ SD not found"}
       };
 
       sock.ev.on("messages.upsert", listener);
-      setTimeout(() => sock.ev.off("messages.upsert", listener), 2 * 60 * 1000);
+      setTimeout(() => sock.ev.off("messages.upsert", listener), 2 * 60 * 1000); // 2 min listener off
 
     } catch (error) {
       console.error("FB Command Error:", error);
