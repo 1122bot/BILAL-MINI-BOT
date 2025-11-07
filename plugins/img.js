@@ -2,51 +2,42 @@ const gis = require("g-i-s");
 
 module.exports = {
   command: "img",
-  desc: "🔍 Google se 10 random images bhejta hai",
-  react: "📸",
+  description: "Search and send 10 images directly",
   category: "media",
 
-  async execute(sock, msg, args) {
+  execute: async (sock, msg, args) => {
     try {
       const from = msg.key.remoteJid;
       const query = args.join(" ");
-      const pushname = msg.pushName || "User";
 
-      if (!query) {
+      if (!query)
         return await sock.sendMessage(from, {
-          text: `❌ *Kya search karna hai bhai?*\n\n📌 Example:\n.img car`
+          text: `Example:\n.img cat`,
         }, { quoted: msg });
-      }
-
-      await sock.sendMessage(from, { text: `🔍 Searching *${query}* images...` }, { quoted: msg });
 
       gis(query, async (error, results) => {
-        if (error || !results || results.length === 0) {
+        if (error || !results || results.length === 0)
           return await sock.sendMessage(from, {
-            text: "❌ Koi image nahi mili, try another keyword!"
+            text: "❌ No images found.",
           }, { quoted: msg });
-        }
 
-        // Random 10 results
-        const images = results.sort(() => 0.5 - Math.random()).slice(0, 10);
-
-        await sock.sendMessage(from, { text: `📸 *${images.length} Images mil gayi!*\n> Requested by: ${pushname}` }, { quoted: msg });
+        const images = results.slice(0, 10).map(r => r.url);
 
         for (let i = 0; i < images.length; i++) {
-          await sock.sendMessage(from, {
-            image: { url: images[i].url },
-            caption: `🖼️ *${query}* - Image ${i + 1}\n> MINI BILAL MD`
-          }, { quoted: msg });
+          try {
+            await sock.sendMessage(from, {
+              image: { url: images[i] },
+              caption: `🖼️ ${query} (${i + 1}/10)`,
+            }, { quoted: msg });
 
-          // small delay to avoid rate limit
-          await new Promise(res => setTimeout(res, 1000));
+            await new Promise(r => setTimeout(r, 800)); // thoda delay
+          } catch (err) {
+            console.log("Image send error:", err.message);
+          }
         }
       });
-    } catch (e) {
-      console.error(e);
-      await sock.sendMessage(msg.key.remoteJid, {
-        text: `⚠️ Error: ${e.message}`
-      }, { quoted: msg });
+    } catch (err) {
+      console.error("Command error:", err);
     }
-  }
+  },
 };
