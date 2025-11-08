@@ -2,7 +2,7 @@ const axios = require('axios');
 
 // 🤖 AI / GPT Command — Mini Bot Version
 module.exports = {
-  command: 'ai',
+  command: 'gpt',
   alias: ['gpt', 'ask', 'chatgpt', 'bing'],
   description: 'Chat with AI using your Heroku API',
   category: 'AI',
