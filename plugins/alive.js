@@ -1,47 +1,52 @@
+const { sleep } = require("../lib/functions");
+
 module.exports = {
   command: "alive",
-  description: "Check if bot is running",
-  category: "info",
+  alias: ["status", "online", "a", "active"],
+  description: "Check bot is alive or not with live line updates",
+  category: "main",
+  react: "🥰",
 
-  async execute(sock, msg) {
+  execute: async (sock, msg, args) => {
     try {
-      const jid = msg.key.remoteJid;
-      const sender = msg.key.participant || msg.key.remoteJid;
-      const jidName = sender.split("@")[0];
+      const from = msg.key.remoteJid;
 
-      const date = new Date().toLocaleDateString();
-      const time = new Date().toLocaleTimeString();
-      const speed = Math.floor(Math.random() * 90 + 10);
+      const lines = [
+        "*ASSALAMUALAIKUM ☺️*",
+        "\n*KESE HAI AP 😇*",
+        "\n*UMEED HAI KE AP KHARIYAT SE HOGE AUR BEHTAR HOGE 🥰*",
+        "\n*AUR APKE GHAR ME BHI SAB KHARIYAT SE HOGE 🥰*",
+        "\n*DUWA KRE GE APKE LIE 🤲*",
+        "\n*ALLAH AP SAB KO HAMESHA KHUSH RAKHE AMEEN 🤲*",
+        "\n*ALLAH AP SAB KI MUSHKIL PARSHANIYA DOOR KARE AMEEN 🤲*",
+        "\n*AP APNA BAHUT KHAYAL RAKHIA KARO 🥰*",
+        "\n*AUR HAMESHA KHUSH RAHA KARO 🥰*",
+        "\n*Q K APKI SMILE BAHUT PYARY HAI MASHALLAH ☺️*",
+        "\n*IS LIE APNE CHEHRE PER HAR WAKAT SMILE RAKHO 🥰*",
+        "\n*KABHI SAD MAT HOYE 🥺♥️*",
+        "\n\n*👑 BILAL-MD WHATSAPP BOT 👑*"
+      ];
 
-      const caption = `*ASSALAMUALAIKUM ☺️*
-      *KESE HAI AP 😇*
-      *UMEED HAI KE AP KHARIYT SE HOGE INSHALLAH 🤲*
-      *ME BILAL-MD MINI BOT USER HOO ☺️*
-      
-      *👑 OWNER INFO 👑*
-https://akaserein.github.io/Bilal/
+      // Pehla blank message send karo
+      let text = "";
+      const sent = await sock.sendMessage(from, { text }, { quoted: msg });
 
-*👑 SUPPORT CHANNEL 👑*
-https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G
-
-*👑 SUPPORT GROUP 👑*
-https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t
-`;
-
-      // Envoyer simplement le message avec l'image
-      await sock.sendMessage(
-        jid,
-        {
-          image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
-          caption: caption
-        },
-        { quoted: msg }
-      );
-
+      // Har 3 sec baad message edit karo
+      for (const line of lines) {
+        text += line + "\n";
+        await sleep(3000);
+        await sock.relayMessage(from, {
+          protocolMessage: {
+            key: sent.key,
+            type: 14,
+            editedMessage: { conversation: text },
+          },
+        }, {});
+      }
     } catch (err) {
-      console.error("❌ Error in alive command:", err);
+      console.error("Alive cmd error:", err);
       await sock.sendMessage(msg.key.remoteJid, {
-        text: "❌ Error checking bot status",
+        text: `❌ *Alive command error:* ${err.message}`,
       });
     }
   },
