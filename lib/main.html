@@ -1,129 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BILAL-MD MINI BOT PANEL</title>
-  <style>
-    body {
-      font-family: 'Rajdhani', sans-serif;
-      background: #0b0f25;
-      color: white;
-      text-align: center;
-      padding: 40px;
-    }
-    .box {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 25px;
-      margin: 20px auto;
-      max-width: 420px;
-      box-shadow: 0 0 15px rgba(138,43,226,0.3);
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0 3px 0;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      background: rgba(255,255,255,0.1);
-      color: white;
-      text-align: center;
-    }
-    input::placeholder {
-      color: rgba(255,255,255,0.4);
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(90deg,#8a2be2,#00f7ff);
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button:hover {
-      background: linear-gradient(90deg,#ff2a6d,#8a2be2);
-    }
-    h3 {
-      color: #00f7ff;
-      margin-bottom: 10px;
-    }
-    small {
-      display: block;
-      color: rgba(255,255,255,0.6);
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BILAL-MD CONTROL PANEL</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1a1a2e);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  min-height: 100vh;
+}
+@keyframes gradient {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+.container {
+  max-width: 420px;
+  margin: auto;
+}
+.box {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 25px;
+  margin-top: 25px;
+  box-shadow: 0 0 25px rgba(0,255,255,0.2);
+  backdrop-filter: blur(12px);
+  transition: 0.3s;
+}
+.box:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 35px rgba(0,255,255,0.4);
+}
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 5px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size: 15px;
+  text-align: center;
+}
+input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: linear-gradient(90deg,#8a2be2,#00f7ff);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background: linear-gradient(90deg,#ff2a6d,#8a2be2);
+  transform: scale(1.03);
+}
+h2 {
+  color: #00f7ff;
+  font-weight: 700;
+}
+small {
+  display: block;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+#pair {
+  margin-top: 12px;
+  color: #00ffcc;
+  font-weight: bold;
+}
+#saveMsg {
+  margin-top: 10px;
+  color: #00ffcc;
+}
+footer {
+  margin-top: 40px;
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+}
+</style>
 </head>
 <body>
 
+<div class="container">
   <div class="box">
     <h2>👑 BILAL-MD MINI BOT 👑</h2>
     <p>Enter your WhatsApp number to get Pair Code</p>
     <input type="tel" id="number" placeholder="+923000000000">
-    <button id="submit">❤️ DONE ❤️</button>
+    <button id="submit">💫 Get Pair Code 💫</button>
     <p id="pair"></p>
   </div>
 
   <div class="box">
-    <h3>⚙️ BOT SETTINGS</h3>
+    <h2>⚙️ BOT CONFIGURATION ⚙️</h2>
 
     <input type="text" id="OWNER_NUMBER" placeholder="OWNER NUMBER e.g. +923000000000">
-    <small>👉 Yahan apna WhatsApp number likho (Owner ka number).  
-    Bot commands sirf isi number se control hongi.</small>
+    <small>👑 Apna WhatsApp number likho (bot ka owner).  
+    Sirf ye number se admin commands chalengi.</small>
 
     <input type="text" id="AUTO_VIEW_STATUS" placeholder="AUTO_VIEW_STATUS (true / false)">
-    <small>🔹 Agar <b>true</b> likho to bot sabhi status (stories) auto-view karega.  
+    <small>👁️‍🗨️ Agar <b>true</b> likho to bot sabhi status (stories) auto-view karega.  
     Agar <b>false</b> likho to ignore karega.</small>
 
     <input type="text" id="AUTO_RECORDING" placeholder="AUTO_RECORDING (true / false)">
-    <small>🎙️ Agar <b>true</b> likho to bot “recording” dikhata rahega (fake mic on).  
-    Agar <b>false</b> likho to off rahega.</small>
+    <small>🎙️ Agar <b>true</b> likho to bot “recording…” show karega (fake mic on).  
+    Agar <b>false</b> likho to ye feature off rahega.</small>
 
     <input type="text" id="PREFIX" placeholder="PREFIX e.g. . or !">
-    <small>⚡ Ye command prefix hai.  
+    <small>⚡ Command prefix set karo.  
     e.g. agar tum likhte ho <b>.</b> to command hogi <code>.alive</code></small>
 
-    <button id="save">💾 Save Config</button>
+    <button id="save">💾 Save Configuration</button>
     <p id="saveMsg"></p>
   </div>
+</div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-  <script>
-    // Pair System
-    document.getElementById("submit").addEventListener("click", async () => {
-      const number = document.getElementById("number").value;
-      if(!number) return alert("Enter your WhatsApp number!");
-      let { data } = await axios(`/code?number=${number}`);
-      document.getElementById("pair").innerHTML = `PAIR CODE: <b>${data.code}</b>`;
+<footer>✨ Developed with 💖 by BILAL-MD ✨</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+<script>
+// Pair System
+document.getElementById("submit").addEventListener("click", async () => {
+  const number = document.getElementById("number").value.trim();
+  if(!number) return alert("Please enter your WhatsApp number!");
+  try {
+    let { data } = await axios(`/code?number=${number}`);
+    document.getElementById("pair").innerHTML = `🔑 Pair Code: <b>${data.code}</b>`;
+  } catch (e) {
+    document.getElementById("pair").innerHTML = "❌ Error generating pair code!";
+  }
+});
+
+// Save Config
+document.getElementById("save").addEventListener("click", async () => {
+  const OWNER_NUMBER = document.getElementById("OWNER_NUMBER").value.trim();
+  const AUTO_VIEW_STATUS = document.getElementById("AUTO_VIEW_STATUS").value.trim().toLowerCase();
+  const AUTO_RECORDING = document.getElementById("AUTO_RECORDING").value.trim().toLowerCase();
+  const PREFIX = document.getElementById("PREFIX").value.trim();
+
+  if(!OWNER_NUMBER) return alert("Please fill OWNER_NUMBER!");
+  try {
+    await axios.post("/save-config", {
+      OWNER_NUMBER, AUTO_VIEW_STATUS, AUTO_RECORDING, PREFIX
     });
-
-    // Save Config
-    document.getElementById("save").addEventListener("click", async () => {
-      const OWNER_NUMBER = document.getElementById("OWNER_NUMBER").value;
-      const AUTO_VIEW_STATUS = document.getElementById("AUTO_VIEW_STATUS").value.toLowerCase();
-      const AUTO_RECORDING = document.getElementById("AUTO_RECORDING").value.toLowerCase();
-      const PREFIX = document.getElementById("PREFIX").value;
-
-      try {
-        let res = await axios.post("/save-config", {
-          OWNER_NUMBER,
-          AUTO_VIEW_STATUS,
-          AUTO_RECORDING,
-          PREFIX
-        });
-        document.getElementById("saveMsg").innerHTML = "✅ Config Saved Successfully!";
-      } catch (err) {
-        document.getElementById("saveMsg").innerHTML = "❌ Failed to save config!";
-      }
-    });
-  </script>
+    document.getElementById("saveMsg").innerHTML = "✅ Configuration Saved Successfully!";
+  } catch (err) {
+    document.getElementById("saveMsg").innerHTML = "❌ Failed to save configuration!";
+  }
+});
+</script>
 
 </body>
 </html>
