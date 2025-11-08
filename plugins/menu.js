@@ -1,94 +1,96 @@
 const config = require('../config');
+const { sleep } = require('../lib/functions');
 
 module.exports = {
   command: "menu",
-  description: "To get the menu.",
-  react: "👑",
+  alias: ["help", "commands", "panel"],
+  description: "To get the full command menu.",
   category: "main",
-  execute: async (socket, msg, args, number) => {
+  react: "👑",
+
+  execute: async (sock, msg, args) => {
     try {
       const from = msg.key.remoteJid;
       const sender = msg.key.participant || from;
       const pushname = msg.pushName || "there";
 
-      // Nouveau style BiLAL-MD 
-      const menumsg = `
-*╭━━━〔 👑 BILAL MD 👑 〕━━━┈⊷*
-*┃👑╭──────────────────*
-*┃👑│ USER :❯ ${pushname}*
-*┃👑│ PLATFORM :❯ BILAL-X❮LINUX❯*
-*┃👑│ PREFiX :❯ ${config.PREFIX}*
-*┃👑│ VERSION :❯ 1.0.0*
-*┃👑╰──────────────────*
-*╰━━━━━━━━━━━━━━━┈⊷*
+      const lines = [
+        "*╭━━━〔 👑 BILAL MD 👑 〕━━━┈⊷*",
+        "*┃👑╭──────────────────*",
+        `*┃👑│ USER :❯ ${pushname}*`,
+        `*┃👑│ PLATFORM :❯ BILAL-X❮LINUX❯*`,
+        `*┃👑│ PREFiX :❯ ${config.PREFIX}*`,
+        "*┃👑│ VERSION :❯ 1.0.0*",
+        "*┃👑╰──────────────────*",
+        "*╰━━━━━━━━━━━━━━━┈⊷*",
+        "",
+        `*HI ${pushname} G 🥰*`,
+        "*MERE BOT KA MENU 🌹*",
+        "*YEH HAI G 😊*",
+        "",
+        "*╭━━〔 👑 DOWNLOAD 👑 〕━━┈⊷*",
+        "*┃👑│ • SONG*",
+        "*┃👑│ • VIDEO*",
+        "*┃👑│ • TIKTOK*",
+        "*┃👑│ • APK*",
+        "*┃👑│ • IMG*",
+        "*╰━━━━━━━━━━━━━━━┈⊷*",
+        "",
+        "*╭━━〔 👑 SEARCH 👑 〕━━┈⊷*",
+        "*┃👑│ • YTS*",
+        "*┃👑│ • LYRICS*",
+        "*╰━━━━━━━━━━━━━━━┈⊷*",
+        "",
+        "*╭━━〔 👑 MAIN 👑 〕━━┈⊷*",
+        "*┃👑│ • ALIVE*",
+        "*┃👑│ • PING*",
+        "*┃👑│ • UPTIME*",
+        "*┃👑│ • SYSTEM*",
+        "*┃👑│ • HELP*",
+        "*┃👑│ • OWNER*",
+        "*╰━━━━━━━━━━━━━━━┈⊷*",
+        "",
+        "*╭━━〔 👑 XTRA 👑 〕━━┈⊷*",
+        "*┃👑│ • VV*",
+        "*╰━━━━━━━━━━━━━━━┈⊷*",
+        "",
+        "*╭━━〔 👑 GROUP 👑 〕━━┈⊷*",
+        "*┃👑│ • MUTE*",
+        "*┃👑│ • UNMUTE*",
+        "*╰━━━━━━━━━━━━━━━┈⊷*",
+        "",
+        "*╭━━〔 👑 USER 👑 〕━━┈⊷*",
+        "*┃👑│ • BLOCK*",
+        "*┃👑│ • UNBLOCK*",
+        "*┃👑│ • AUTOBIO*",
+        "*╰━━━━━━━━━━━━━━━┈⊷*",
+        "",
+        "*╭━━〔 👑 AI 👑 〕━━┈⊷*",
+        "*┃👑│ • GPT*",
+        "*╰━━━━━━━━━━━━━━━┈⊷*",
+        "",
+        "*╭━━〔 👑 CONVERT 👑 〕━━┈⊷*",
+        "*┃👑│ • TTS*",
+        "*╰━━━━━━━━━━━━━━━┈⊷*",
+        "",
+        "*👑 BILAL-MD MINI BOT 👑*",
+        "",
+        "*👑 FOR SUPPORT 👑*",
+        "*👑 DEVELOPER 👑*",
+        "https://akaserein.github.io/Bilal/",
+        "",
+        "*👑 SUPPORT CHANNEL 👑*",
+        "https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G",
+        "",
+        "*👑 SUPPORT GROUP 👑*",
+        "https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t"
+      ];
 
-*HI ${pushname} G 🥰*
-*MERE BOT KA MENU 🌹*
-*YEH HAI G 😊*
-
-*╭━━〔 👑 DOWNLOAD 👑 〕━━┈⊷*
-*┃👑│ • SONG*
-*┃👑│ • VIDEO*
-*┃👑│ • TIKTOK*
-*┃👑│ • APK*
-*┃👑│ • IMG*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
-*╭━━〔 👑 SEARCH 👑 〕━━┈⊷*
-*┃👑│ • YTS*
-*┃👑│ • LYRICS*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
-*╭━━〔 👑 MAIN 👑 〕━━┈⊷*
-*┃👑│ • ALIVE*
-*┃👑│ • PING*
-*┃👑│ • UPTIME*
-*┃👑│ • SYSTEM*
-*┃👑│ • HELP*
-*┃👑│ • OWNER*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
-*╭━━〔 👑 XTRA 👑 〕━━┈⊷*
-*┃👑│ • VV*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
-*╭━━〔 👑 GROUP 👑 〕━━┈⊷*
-*┃👑│ • MUTE*
-*┃👑│ • UNMUTE*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
-*╭━━〔 👑 USER 👑 〕━━┈⊷*
-*┃👑│ • BLOCK*
-*┃👑│ • UNBLOCK*
-*┃👑│ • AUTOBIO*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
-*╭━━〔 👑 AI 👑 〕━━┈⊷*
-*┃👑│ • GPT*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
-*╭━━〔 👑 CONVERT 👑 〕━━┈⊷*
-*┃👑│ • TTS*
-*╰━━━━━━━━━━━━━━━┈⊷*
-
-*👑 BILAL-MD MINI BOT 👑*
-
-*👑 FOR SUPPORT 👑*
- *👑 DEVELEPER 👑* 
- *https://akaserein.github.io/Bilal/*
- 
- *👑 SUPPORT CHANNEL 👑* 
-*https://whatsapp.com/channel/0029Vaj3Xnu17EmtDxTNnQ0G*
- 
- *👑 SUPPORT GROUP 👑* 
- *https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t*
-
-`;
-
-      // Envoi du menu avec image et contextInfo stylisé
-      await socket.sendMessage(sender, {
+      // Empty caption initially
+      let caption = "";
+      const sent = await sock.sendMessage(from, {
         image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
-        caption: menumsg,
+        caption,
         contextInfo: {
           mentionedJid: [sender],
           forwardingScore: 999,
@@ -101,10 +103,26 @@ module.exports = {
         }
       }, { quoted: msg });
 
+      // Line by line update
+      for (const line of lines) {
+        caption += line + "\n";
+        await sleep(1000); // 1 second gap
+        await sock.relayMessage(from, {
+          protocolMessage: {
+            key: sent.key,
+            type: 14,
+            editedMessage: { conversation: caption }
+          }
+        }, {});
+      }
+
+      // Final reaction 👑
+      await sock.sendMessage(from, { react: { text: "👑", key: msg.key } });
+
     } catch (e) {
       console.error(e);
-      await socket.sendMessage(msg.key.remoteJid, { 
-        text: `❌ ERROR: ${e.message}` 
+      await sock.sendMessage(msg.key.remoteJid, {
+        text: `❌ ERROR: ${e.message}`
       }, { quoted: msg });
     }
   }
