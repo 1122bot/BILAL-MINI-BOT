@@ -13,7 +13,7 @@ function convertToBool(text, fault = 'true') {
 
 
 module.exports = {
-    LANG: 'si',
+    LANG: 'en',
     WELCOME: 'true',
     AUTO_VIEW_STATUS: 'true',
     AUTO_VOICE: 'true',
