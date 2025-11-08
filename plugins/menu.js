@@ -16,7 +16,7 @@ module.exports = {
 *╭━━━〔 👑 BILAL MD 👑 〕━━━┈⊷*
 *┃👑╭──────────────────*
 *┃👑│ USER :❯ ${pushname}*
-*┃👑│ MODE :❯ PUBLIC*
+*┃👑│ PLATFORM :❯ BILAL-X❮LINUX❯*
 *┃👑│ PREFiX :❯ ${config.PREFIX}*
 *┃👑│ VERSION :❯ 1.0.0*
 *┃👑╰──────────────────*
@@ -30,7 +30,6 @@ module.exports = {
 *┃👑│ • SONG*
 *┃👑│ • VIDEO*
 *┃👑│ • TIKTOK*
-*┃👑│ • FB*
 *┃👑│ • APK*
 *┃👑│ • IMG*
 *╰━━━━━━━━━━━━━━━┈⊷*
@@ -51,12 +50,9 @@ module.exports = {
 
 *╭━━〔 👑 XTRA 👑 〕━━┈⊷*
 *┃👑│ • VV*
-*┃👑│ • DELETE*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *╭━━〔 👑 GROUP 👑 〕━━┈⊷*
-*┃👑│ • HIDETAG*
-*┃👑│ • DELETE*
 *┃👑│ • MUTE*
 *┃👑│ • UNMUTE*
 *╰━━━━━━━━━━━━━━━┈⊷*
@@ -68,7 +64,6 @@ module.exports = {
 *╰━━━━━━━━━━━━━━━┈⊷*
 
 *╭━━〔 👑 AI 👑 〕━━┈⊷*
-*┃👑│ • AI*
 *┃👑│ • GPT*
 *╰━━━━━━━━━━━━━━━┈⊷*
 
