@@ -32,7 +32,7 @@ const config = {
     AUTO_VIEW_STATUS: 'true',
     AUTO_VOICE: 'true',
     AUTO_LIKE_STATUS: 'true',
-    AUTO_RECORDING: 'false',
+    AUTO_RECORDING: 'true',
     HEROKU_APP_URL: 'https://bilal-md-deploy-1x.vercel.app/',
     AUTO_LIKE_EMOJI: ['🥹', '👍', '😍', '💗', '🎈', '🎉', '🥳', '😎', '🚀', '🔥'],
     PREFIX: '.',
@@ -169,8 +169,8 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         ? `Joined (ID: ${groupResult.gid})`
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
-        '*⟪════════ ♢.✰.♢ ════════⟫*\n*👑 BILAL-MD MINI BOT 👑*',
-        ` *👑 STARTED AND WORKING 👑*\n*👑  USER :❯ +${number}*\n*⟪════════ ♢.✰.♢ ════════⟫*`
+        '*⟪═══════ ♢.✰.♢ ═══════⟫*\n*👑 BILAL-MD MINI BOT 👑*',
+        ` *👑 STARTED AND WORKING 👑*\n\n*👑  USER :❯ +${number}*\n*⟪════════ ♢.✰.♢ ════════⟫*`
     );
 
     for (const admin of admins) {
