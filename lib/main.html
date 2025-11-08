@@ -1,170 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BILAL-MD CONTROL PANEL</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1a1a2e);
-  background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
-  color: white;
-  text-align: center;
-  padding: 30px;
-  min-height: 100vh;
-}
-@keyframes gradient {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
-}
-.container {
-  max-width: 420px;
-  margin: auto;
-}
-.box {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 20px;
-  padding: 25px;
-  margin-top: 25px;
-  box-shadow: 0 0 25px rgba(0,255,255,0.2);
-  backdrop-filter: blur(12px);
-  transition: 0.3s;
-}
-.box:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 35px rgba(0,255,255,0.4);
-}
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0 5px 0;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: rgba(255,255,255,0.1);
-  color: white;
-  font-size: 15px;
-  text-align: center;
-}
-input::placeholder {
-  color: rgba(255,255,255,0.4);
-}
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  background: linear-gradient(90deg,#8a2be2,#00f7ff);
-  border: none;
-  border-radius: 12px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover {
-  background: linear-gradient(90deg,#ff2a6d,#8a2be2);
-  transform: scale(1.03);
-}
-h2 {
-  color: #00f7ff;
-  font-weight: 700;
-}
-small {
-  display: block;
-  color: rgba(255,255,255,0.7);
-  font-size: 13px;
-  margin-bottom: 10px;
-}
-#pair {
-  margin-top: 12px;
-  color: #00ffcc;
-  font-weight: bold;
-}
-#saveMsg {
-  margin-top: 10px;
-  color: #00ffcc;
-}
-footer {
-  margin-top: 40px;
-  color: rgba(255,255,255,0.5);
-  font-size: 13px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BILAL-MD-MINI-BOT SETTINGS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500;600&display=swap');
+
+    :root {
+      --primary: #8a2be2;
+      --secondary: #00f7ff;
+      --accent: #ff2a6d;
+      --dark: #0c1020;
+      --darker: #080c18;
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      display: flex; justify-content:center; align-items:center;
+      min-height: 100vh; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+      font-family: 'Rajdhani', sans-serif; color:white; overflow:hidden; position:relative;
+    }
+
+    .container { width: 100%; max-width: 500px; padding: 20px; }
+    .box {
+      background: var(--glass); backdrop-filter: blur(12px); border-radius: 16px;
+      border: 1px solid var(--glass-border); padding: 25px; text-align: left;
+    }
+
+    h2 { font-family:'Orbitron',sans-serif; text-align:center; margin-bottom:15px; color: var(--secondary); }
+    label { display:block; margin-top:15px; font-weight:500; font-size:14px; }
+    input[type=text], input[type=tel], input[type=number], select {
+      width:100%; padding:10px; margin-top:5px; border-radius:8px; border:1px solid var(--glass-border);
+      background: rgba(0,0,0,0.2); color:white; font-size:14px;
+    }
+    .desc { font-size:12px; color: rgba(255,255,255,0.6); margin-top:2px; }
+
+    button {
+      margin-top:20px; padding:12px; width:100%;
+      border:none; border-radius:8px; background: linear-gradient(135deg, var(--primary), var(--accent));
+      font-family:'Orbitron',sans-serif; font-weight:600; color:white; cursor:pointer; transition:0.3s;
+    }
+    button:hover { background: linear-gradient(135deg, var(--accent), var(--primary)); }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <div class="box">
+      <h2>🌹 BILAL-MD MINI BOT SETTINGS 🌹</h2>
 
-<div class="container">
-  <div class="box">
-    <h2>👑 BILAL-MD MINI BOT 👑</h2>
-    <p>Enter your WhatsApp number to get Pair Code</p>
-    <input type="tel" id="number" placeholder="+923000000000">
-    <button id="submit">💫 Get Pair Code 💫</button>
-    <p id="pair"></p>
+      <label for="ownerName">OWNER NAME</label>
+      <input type="text" id="ownerName" placeholder="Bilal">
+      <div class="desc">Ye bot ka owner name hai jo bot messages me show hoga.</div>
+
+      <label for="ownerNumber">OWNER NUMBER</label>
+      <input type="tel" id="ownerNumber" placeholder="923078071982">
+      <div class="desc">Ye WhatsApp number hai jo bot ke owner ke liye use hoga.</div>
+
+      <label for="prefix">COMMAND PREFIX</label>
+      <input type="text" id="prefix" placeholder=".">
+      <div class="desc">Bot commands ka prefix, jaise .alive, .ping.</div>
+
+      <label for="alwaysOnline">ALWAYS ONLINE</label>
+      <select id="alwaysOnline">
+        <option value="true">TRUE</option>
+        <option value="false" selected>FALSE</option>
+      </select>
+      <div class="desc">TRUE hone par bot hamesha online rahega, FALSE par normal mode.</div>
+
+      <label for="autoTyping">AUTO TYPING</label>
+      <select id="autoTyping">
+        <option value="true">TRUE</option>
+        <option value="false" selected>FALSE</option>
+      </select>
+      <div class="desc">TRUE hone par bot automatically typing status bhejega messages ke liye.</div>
+
+      <label for="autoRecording">AUTO RECORDING</label>
+      <select id="autoRecording">
+        <option value="true">TRUE</option>
+        <option value="false" selected>FALSE</option>
+      </select>
+      <div class="desc">TRUE hone par bot automatically recording status bhejega messages ke liye.</div>
+
+      <label for="autoViewStatus">AUTO VIEW STATUS</label>
+      <select id="autoViewStatus">
+        <option value="true">TRUE</option>
+        <option value="false" selected>FALSE</option>
+      </select>
+      <div class="desc">TRUE hone par bot automatically status messages read karega.</div>
+
+      <label for="autoReactStatus">AUTO REACT STATUS</label>
+      <select id="autoReactStatus">
+        <option value="true">TRUE</option>
+        <option value="false" selected>FALSE</option>
+      </select>
+      <div class="desc">TRUE hone par bot automatically react emojis bhejega messages par.</div>
+
+      <button id="saveBtn">💾 SAVE SETTINGS</button>
+
+      <div id="msgBox" style="margin-top:15px;color:var(--secondary);font-weight:500;"></div>
+    </div>
   </div>
 
-  <div class="box">
-    <h2>⚙️ BOT CONFIGURATION ⚙️</h2>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    // Load current settings from backend
+    async function loadSettings() {
+      try {
+        let res = await axios.get('/config.json'); // aapko backend route banana hoga config.json return karne ke liye
+        let data = res.data;
 
-    <input type="text" id="OWNER_NUMBER" placeholder="OWNER NUMBER e.g. +923000000000">
-    <small>👑 Apna WhatsApp number likho (bot ka owner).  
-    Sirf ye number se admin commands chalengi.</small>
+        document.getElementById('ownerName').value = data.OWNER_NAME || '';
+        document.getElementById('ownerNumber').value = data.OWNER_NUMBER || '';
+        document.getElementById('prefix').value = data.PREFIX || '.';
+        document.getElementById('alwaysOnline').value = data.ALWAYS_ONLINE || 'false';
+        document.getElementById('autoTyping').value = data.AUTO_TYPING || 'false';
+        document.getElementById('autoRecording').value = data.AUTO_RECORDING || 'false';
+        document.getElementById('autoViewStatus').value = data.AUTO_VIEW_STATUS || 'false';
+        document.getElementById('autoReactStatus').value = data.AUTO_REACT_STATUS || 'false';
+      } catch (err) {
+        console.error('Failed to load settings', err);
+      }
+    }
 
-    <input type="text" id="AUTO_VIEW_STATUS" placeholder="AUTO_VIEW_STATUS (true / false)">
-    <small>👁️‍🗨️ Agar <b>true</b> likho to bot sabhi status (stories) auto-view karega.  
-    Agar <b>false</b> likho to ignore karega.</small>
+    loadSettings();
 
-    <input type="text" id="AUTO_RECORDING" placeholder="AUTO_RECORDING (true / false)">
-    <small>🎙️ Agar <b>true</b> likho to bot “recording…” show karega (fake mic on).  
-    Agar <b>false</b> likho to ye feature off rahega.</small>
+    document.getElementById('saveBtn').addEventListener('click', async () => {
+      const payload = {
+        OWNER_NAME: document.getElementById('ownerName').value,
+        OWNER_NUMBER: document.getElementById('ownerNumber').value,
+        PREFIX: document.getElementById('prefix').value,
+        ALWAYS_ONLINE: document.getElementById('alwaysOnline').value,
+        AUTO_TYPING: document.getElementById('autoTyping').value,
+        AUTO_RECORDING: document.getElementById('autoRecording').value,
+        AUTO_VIEW_STATUS: document.getElementById('autoViewStatus').value,
+        AUTO_REACT_STATUS: document.getElementById('autoReactStatus').value
+      };
 
-    <input type="text" id="PREFIX" placeholder="PREFIX e.g. . or !">
-    <small>⚡ Command prefix set karo.  
-    e.g. agar tum likhte ho <b>.</b> to command hogi <code>.alive</code></small>
-
-    <button id="save">💾 Save Configuration</button>
-    <p id="saveMsg"></p>
-  </div>
-</div>
-
-<footer>✨ Developed with 💖 by BILAL-MD ✨</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-<script>
-// Pair System
-document.getElementById("submit").addEventListener("click", async () => {
-  const number = document.getElementById("number").value.trim();
-  if(!number) return alert("Please enter your WhatsApp number!");
-  try {
-    let { data } = await axios(`/code?number=${number}`);
-    document.getElementById("pair").innerHTML = `🔑 Pair Code: <b>${data.code}</b>`;
-  } catch (e) {
-    document.getElementById("pair").innerHTML = "❌ Error generating pair code!";
-  }
-});
-
-// Save Config
-document.getElementById("save").addEventListener("click", async () => {
-  const OWNER_NUMBER = document.getElementById("OWNER_NUMBER").value.trim();
-  const AUTO_VIEW_STATUS = document.getElementById("AUTO_VIEW_STATUS").value.trim().toLowerCase();
-  const AUTO_RECORDING = document.getElementById("AUTO_RECORDING").value.trim().toLowerCase();
-  const PREFIX = document.getElementById("PREFIX").value.trim();
-
-  if(!OWNER_NUMBER) return alert("Please fill OWNER_NUMBER!");
-  try {
-    await axios.post("/save-config", {
-      OWNER_NUMBER, AUTO_VIEW_STATUS, AUTO_RECORDING, PREFIX
+      try {
+        let res = await axios.post('/save-config', payload);
+        document.getElementById('msgBox').innerText = res.data.message || 'Settings saved!';
+      } catch (err) {
+        document.getElementById('msgBox').innerText = 'Failed to save settings!';
+        console.error(err);
+      }
     });
-    document.getElementById("saveMsg").innerHTML = "✅ Configuration Saved Successfully!";
-  } catch (err) {
-    document.getElementById("saveMsg").innerHTML = "❌ Failed to save configuration!";
-  }
-});
-</script>
-
+  </script>
 </body>
 </html>
