@@ -4,9 +4,8 @@ const { sleep } = require('../lib/functions');
 module.exports = {
   command: "menu",
   alias: ["help", "commands", "panel"],
-  description: "To get the full command menu.",
+  description: "To get the full command menu with live effect.",
   category: "main",
-  react: "👑",
 
   execute: async (sock, msg, args) => {
     try {
@@ -18,7 +17,7 @@ module.exports = {
         "*┃👑╭──────────────────*",
         `*┃👑│ USER :❯ ${pushname}*`,
         `*┃👑│ PLATFORM :❯ BILAL-X❮LINUX❯*`,
-        `*┃👑│ PREFiX :❯ ${config.PREFIX}*`,
+        `*┃👑│ PREFIX :❯ ${config.PREFIX}*`,
         "*┃👑│ VERSION :❯ 1.0.0*",
         "*┃👑╰──────────────────*",
         "*╰━━━━━━━━━━━━━━━┈⊷*",
@@ -83,23 +82,34 @@ module.exports = {
         "https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t"
       ];
 
-      // Step 1: Send image with short caption
+      // Step 1: Send image first with caption
       await sock.sendMessage(from, {
         image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
-        caption: "*👑 BILAL-MD MINI BOT 👑*"
+        caption: "*👑 BILAL-MD MINI BOT 👑*",
       }, { quoted: msg });
 
-      // Step 2: Send menu line by line with 1 second delay
+      // Step 2: Send empty text message
+      let text = "";
+      const sent = await sock.sendMessage(from, { text }, { quoted: msg });
+
+      // Step 3: Line by line add with edit effect
       for (const line of lines) {
-        await sock.sendMessage(from, { text: line });
-        await sleep(1000); // 1 second gap
+        text += line + "\n";
+        await sleep(1000); // har line ke beech 1 sec ka gap
+        await sock.relayMessage(from, {
+          protocolMessage: {
+            key: sent.key,
+            type: 14,
+            editedMessage: { conversation: text },
+          },
+        }, {});
       }
 
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error("Menu command error:", err);
       await sock.sendMessage(msg.key.remoteJid, {
-        text: `❌ ERROR: ${e.message}`
+        text: "*❌ ERROR: DUBARA KOSHISH KARE 😔*",
       }, { quoted: msg });
     }
-  }
+  },
 };
