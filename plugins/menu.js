@@ -11,7 +11,6 @@ module.exports = {
   execute: async (sock, msg, args) => {
     try {
       const from = msg.key.remoteJid;
-      const sender = msg.key.participant || from;
       const pushname = msg.pushName || "there";
 
       const lines = [
@@ -24,7 +23,7 @@ module.exports = {
         "*┃👑╰──────────────────*",
         "*╰━━━━━━━━━━━━━━━┈⊷*",
         "",
-        `*HI ${pushname} G 🥰*`,
+        "*HI G 🥰*",
         "*MERE BOT KA MENU 🌹*",
         "*YEH HAI G 😊*",
         "",
@@ -73,8 +72,6 @@ module.exports = {
         "*┃👑│ • TTS*",
         "*╰━━━━━━━━━━━━━━━┈⊷*",
         "",
-        "*👑 BILAL-MD MINI BOT 👑*",
-        "",
         "*👑 FOR SUPPORT 👑*",
         "*👑 DEVELOPER 👑*",
         "https://akaserein.github.io/Bilal/",
@@ -86,38 +83,17 @@ module.exports = {
         "https://chat.whatsapp.com/BwWffeDwiqe6cjDDklYJ5m?mode=ems_copy_t"
       ];
 
-      // Empty caption initially
-      let caption = "";
-      const sent = await sock.sendMessage(from, {
+      // Step 1: Send image with short caption
+      await sock.sendMessage(from, {
         image: { url: 'https://files.catbox.moe/bkufwo.jpg' },
-        caption,
-        contextInfo: {
-          mentionedJid: [sender],
-          forwardingScore: 999,
-          isForwarded: true,
-          forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363296818107681@newsletter',
-            newsletterName: 'BILAL-MD MINI BOT',
-            serverMessageId: 143
-          }
-        }
+        caption: "*👑 BILAL-MD MINI BOT 👑*"
       }, { quoted: msg });
 
-      // Line by line update
+      // Step 2: Send menu line by line with 1 second delay
       for (const line of lines) {
-        caption += line + "\n";
+        await sock.sendMessage(from, { text: line });
         await sleep(1000); // 1 second gap
-        await sock.relayMessage(from, {
-          protocolMessage: {
-            key: sent.key,
-            type: 14,
-            editedMessage: { conversation: caption }
-          }
-        }, {});
       }
-
-      // Final reaction 👑
-      await sock.sendMessage(from, { react: { text: "👑", key: msg.key } });
 
     } catch (e) {
       console.error(e);
