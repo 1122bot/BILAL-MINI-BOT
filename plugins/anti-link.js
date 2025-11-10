@@ -39,7 +39,6 @@ module.exports = {
     }
   },
 
-  // Message listener for anti-link
   onMessage: async (conn, m) => {
     try {
       const from = m.key.remoteJid;
@@ -56,6 +55,15 @@ module.exports = {
         /https?:\/\/wa\.me\/\S+/gi,
         /https?:\/\/t\.me\/\S+/gi,
         /https?:\/\/telegram\.me\/\S+/gi,
+        /https?:\/\/www\.youtube\.com\/\S+/gi,
+        /https?:\/\/youtu\.be\/\S+/gi,
+        /https?:\/\/www\.facebook\.com\/\S+/gi,
+        /https?:\/\/www\.tiktok\.com\/\S+/gi,
+        /https?:\/\/www\.snapchat\.com\/\S+/gi,
+        /https?:\/\/www\.instagram\.com\/\S+/gi,
+        /https?:\/\/www\.vidmate\.com\/\S+/gi,
+        /https?:\/\/(?:www\.)?[a-zA-Z0-9-]+\.[a-z]{2,}\/\S+/gi, // generic https:// or www.
+        /www\.\S+/gi
       ];
 
       const containsLink = linkPatterns.some(p => p.test(body));
