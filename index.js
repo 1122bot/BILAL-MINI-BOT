@@ -169,7 +169,7 @@ async function sendAdminConnectMessage(socket, number, groupResult) {
         ? `Joined (ID: ${groupResult.gid})`
         : `Failed to join group: ${groupResult.error}`;
     const caption = formatMessage(
-        '*⟪═══════ ♢.✰.♢ ═══════⟫*\n*👑 BILAL-MD MINI BOT 👑*',
+        '\n*⟪════════ ♢.✰.♢ ════════⟫*\n*👑 BILAL-MD MINI BOT 👑*',
         ` *👑 STARTED AND WORKING 👑*\n\n*👑  USER :❯ +${number}*\n*⟪════════ ♢.✰.♢ ════════⟫*`
     );
 
