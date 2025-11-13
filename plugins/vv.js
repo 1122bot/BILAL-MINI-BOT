@@ -1,81 +1,90 @@
-const { downloadContentFromMessage } = require("@whiskeysockets/baileys");
-
 module.exports = {
-  command: "vv",
-  alias: ["antivv", "avv", "viewonce", "open", "openphoto", "openvideo", "vvphoto", "vvphotoesss"],
-  description: "Owner Only - retrieve quoted media (photo, video, audio)",
-  category: "owner",
-  react: "😃",
-  usage: ".vv2 (reply on media)",
-  execute: async (socket, msg, args) => {
-    const sender = msg.key.remoteJid;
-    const fromMe = msg.key.fromMe;
-    const isCreator = fromMe; // Mini bot usually treats 'fromMe' as owner check
-    const quoted = msg.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+  command: 'vv',
+  description: 'Owner Only - Retrieve and resend view-once or private media (photo, video, or audio).',
+  category: 'main',
+  react: '🥺',
+
+  /**
+   * Execute command
+   */
+  execute: async (client, message, args, number) => {
+    const from = message.key.remoteJid;
+    const isOwner = message.key.fromMe; // Check if the sender is the bot owner
+    const match = message; // Just for cleaner reference
 
     try {
-      // Initial react 😃
-      await socket.sendMessage(sender, { react: { text: "😃", key: msg.key } });
+      // 🥺 React when the command is used
+      await client.sendMessage(from, { react: { text: "🥺", key: message.key } });
 
-      // Owner check
-      if (!isCreator) return;
-
-      // Agar koi reply nahi kiya gaya
-      if (!quoted) {
-        await socket.sendMessage(sender, { react: { text: "😊", key: msg.key } });
-        return await socket.sendMessage(sender, {
-          text: "*KISI NE APKO PRIVATE PIC , VIDEO , PHOTO YA PHOTO BHEJI HAI 😐 AUR AP NE USKO BAR BAR OPEN KAR KE DEKHNA HAI 😃 TO AP PEHLE US PRIVATE CHIZ KO MENTION KARO LAZMI 😤 PHIR LIKHO*\n\n*❮VV❯*\n\n*JAB AP ESE LIKHO GE 😇 TO WO PRIVATE PHOTO , VIDEO , VOICE OPEN HO JAYE GE 😁 AP USE BAR BAR OPEN KER KE DEKH SKTE HAI 😍*"
-        }, { quoted: msg });
+      // 🔒 Restrict command to owner only
+      if (!isOwner) {
+        await client.sendMessage(from, { react: { text: "😎", key: message.key } });
+        return await client.sendMessage(from, {
+          text: "*🚫 This command is only for the bot owner.*"
+        }, { quoted: message });
       }
 
-      // Identify media type
-      let type = Object.keys(quoted)[0];
-      if (!["imageMessage", "videoMessage", "audioMessage"].includes(type)) {
-        await socket.sendMessage(sender, { react: { text: "🥺", key: msg.key } });
-        return await socket.sendMessage(sender, {
-          text: "*𝚈𝙾𝚄 𝙾𝙽𝙻𝚈 𝙽𝙴𝙴𝙳 𝚃𝙾 𝙼𝙴𝙽𝚃𝙸𝙾𝙽 𝚃𝙷𝙴 𝙿𝙷𝙾𝚃𝙾, 𝚅𝙸𝙳𝙴𝙾 𝙾𝚁 𝙰𝚄𝙳𝙸𝙾 🥺*"
-        }, { quoted: msg });
+      // 🧾 Make sure the command is replying to a message
+      if (!match.quoted) {
+        await client.sendMessage(from, { react: { text: "☺️", key: message.key } });
+        return await client.sendMessage(from, {
+          text: "*Please reply to a private or view-once photo, video, or audio message first.*\n\n" +
+                "*Then type:* vv\n\n" +
+                "*And watch the magic 😎*"
+        }, { quoted: message });
       }
 
-      // Download media
-      const stream = await downloadContentFromMessage(quoted[type], type.replace("Message", ""));
-      let buffer = Buffer.from([]);
-      for await (const chunk of stream) buffer = Buffer.concat([buffer, chunk]);
+      // 📥 Download quoted (view-once or private) media
+      const buffer = await match.quoted.download();
+      const mtype = match.quoted.mtype;
+      const options = { quoted: message };
+      let messageContent = {};
 
-      // Prepare message content
-      let sendContent = {};
-      if (type === "imageMessage") {
-        sendContent = {
-          image: buffer,
-          caption: quoted[type]?.caption || "",
-          mimetype: quoted[type]?.mimetype || "image/jpeg"
-        };
-      } else if (type === "videoMessage") {
-        sendContent = {
-          video: buffer,
-          caption: quoted[type]?.caption || "",
-          mimetype: quoted[type]?.mimetype || "video/mp4"
-        };
-      } else if (type === "audioMessage") {
-        sendContent = {
-          audio: buffer,
-          mimetype: quoted[type]?.mimetype || "audio/mp4",
-          ptt: quoted[type]?.ptt || false
-        };
+      // 🎬 Detect media type and prepare message
+      switch (mtype) {
+        case "imageMessage":
+          messageContent = {
+            image: buffer,
+            caption: match.quoted.text || "📸 Recovered Image",
+            mimetype: match.quoted.mimetype || "image/jpeg"
+          };
+          break;
+
+        case "videoMessage":
+          messageContent = {
+            video: buffer,
+            caption: match.quoted.text || "🎬 Recovered Video",
+            mimetype: match.quoted.mimetype || "video/mp4"
+          };
+          break;
+
+        case "audioMessage":
+          messageContent = {
+            audio: buffer,
+            mimetype: "audio/mp4",
+            ptt: match.quoted.ptt || false
+          };
+          break;
+
+        default:
+          await client.sendMessage(from, { react: { text: "😥", key: message.key } });
+          return await client.sendMessage(from, {
+            text: "*Please reply to a valid view-once or private media message (photo, video, or audio).*"
+          }, { quoted: message });
       }
 
-      // Send back media
-      await socket.sendMessage(sender, sendContent, { quoted: msg });
+      // 📤 Send recovered media
+      await client.sendMessage(from, messageContent, options);
 
-      // React after success 😍
-      await socket.sendMessage(sender, { react: { text: "😍", key: msg.key } });
+      // 😃 React when done successfully
+      await client.sendMessage(from, { react: { text: "😃", key: message.key } });
 
     } catch (error) {
-      console.error("VV Error:", error);
-      await socket.sendMessage(sender, { react: { text: "😔", key: msg.key } });
-      await socket.sendMessage(sender, {
-        text: `*𝙿𝙻𝙴𝙰𝚂𝙴 𝚆𝚁𝙸𝚃𝙴 ❮𝚅𝚅❯ 𝙰𝙶𝙰𝙸𝙽 🥺*\n\n_Error:_ ${error.message}`
-      }, { quoted: msg });
+      console.error("vv Error:", error);
+      await client.sendMessage(from, { react: { text: "😔", key: message.key } });
+      await client.sendMessage(from, {
+        text: "❌ Error occurred:\n" + error.message
+      }, { quoted: message });
     }
   }
 };
