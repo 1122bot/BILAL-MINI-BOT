@@ -13,8 +13,8 @@ module.exports = {
     
     // Auto Settings
     AUTO_VIEW_STATUS: 'true',        // ✅ auto read status
-    AUTO_TYPING: 'true',             // ✅ auto typing
-    AUTO_RECORDING: 'false',         // ✅ auto recording
+    AUTO_TYPING: 'false',             // ✅ auto typing
+    AUTO_RECORDING: 'true',         // ✅ auto recording
     AUTO_REACT_STATUS: 'true',       // ✅ auto reacts
     AUTO_LIKE_STATUS: 'true',        // legacy auto like
     AUTO_LIKE_EMOJI: ['💥','👍','😍','💗','🎈','🎉','🥳','😎','🚀','🔥'],
